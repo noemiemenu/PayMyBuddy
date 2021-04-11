@@ -3,19 +3,26 @@
   <ID>JAVA</ID>
   <OriginalElement>com.paymybuddy</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">com.paymybuddy.PaymybuddyApplication</node>
+    <node x="0.0" y="301.0">com.paymybuddy.PayMyBuddyApplication</node>
+    <node x="0.0" y="153.0">com.paymybuddy.PaymybuddyApplicationTests</node>
+    <node x="208.0" y="449.0">com.paymybuddy.enums</node>
+    <node x="0.0" y="449.0">com.paymybuddy.interfaces</node>
+    <node x="21.5" y="0.0">com.paymybuddy.models</node>
+    <node x="0.0" y="375.0">com.paymybuddy.RegistrationContoller</node>
+    <node x="0.0" y="227.0">com.paymybuddy.AuthenticationContoller</node>
+    <node x="0.0" y="79.0">com.paymybuddy.repositories</node>
+    <node x="245.0" y="375.0">com.paymybuddy.controllers</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="100.0" y="26.5" />
-  <SelectedNodes>
-    <node>com.paymybuddy.PaymybuddyApplication</node>
-  </SelectedNodes>
-  <Categories>
-    <Category>Fields</Category>
-    <Category>Methods</Category>
-    <Category>Properties</Category>
-  </Categories>
+  <edges>
+    <edge source="com.paymybuddy.repositories" target="com.paymybuddy.models">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="334.5" y="300.5" />
+  <SelectedNodes />
+  <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>

@@ -1,0 +1,7 @@
+package com.paymybuddy.enums;
+
+public enum TransactionType {
+    SEND_TO_FRIEND,
+    SEND_TO_BANK,
+    ADD_TO_ACCOUNT
+}
