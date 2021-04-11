@@ -1,6 +1,11 @@
 package com.paymybuddy.controllers;
 
+import com.paymybuddy.services.AuthenticationService;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class AuthenticationController {
-    private final com.paymybuddy.repositories.UsersRepository userRepository;
-    private final com.paymybuddy.repositories.BankAccountsRepository bankAccountsRepository;
+    private final AuthenticationService authenticationService;
+
+
 }
