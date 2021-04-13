@@ -3,47 +3,56 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="219.5" y="0.0">com.paymybuddy.models.User</node>
-    <node x="41.5" y="417.0">com.paymybuddy.controllers.AuthenticationController</node>
-    <node x="227.0" y="213.0">com.paymybuddy.repositories.UsersRepository</node>
-    <node x="0.0" y="213.0">com.paymybuddy.repositories.BankAccountsRepository</node>
-    <node x="31.5" y="22.0">com.paymybuddy.models.BankAccount</node>
-    <node x="22.0" y="292.0">com.paymybuddy.services.AuthenticationService</node>
+    <node x="0.0" y="348.0">com.paymybuddy.models.User</node>
+    <node x="115.5" y="1126.0">com.paymybuddy.controllers.AuthenticationController</node>
+    <node x="46.5" y="894.0">com.paymybuddy.repositories.UsersRepository</node>
+    <node x="295.0" y="581.0">com.paymybuddy.repositories.BankAccountsRepository</node>
+    <node x="177.0" y="0.0">com.paymybuddy.models.BankAccount</node>
+    <node x="96.0" y="976.0">com.paymybuddy.services.AuthenticationService</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.paymybuddy.repositories.UsersRepository" target="com.paymybuddy.models.User">
-      <point x="0.0" y="-14.5" />
-      <point x="0.0" y="81.5" />
+    <edge source="com.paymybuddy.repositories.BankAccountsRepository" target="com.paymybuddy.models.BankAccount" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.0" />
+      <point x="419.5" y="323.0" />
+      <point x="329.25" y="323.0" />
+      <point x="50.75" y="149.0" />
     </edge>
-    <edge source="com.paymybuddy.controllers.AuthenticationController" target="com.paymybuddy.services.AuthenticationService">
-      <point x="0.0" y="-26.5" />
-      <point x="0.0" y="37.5" />
+    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.UsersRepository" relationship="TO_ONE">
+      <point x="-91.25" y="-50.0" />
+      <point x="187.25" y="950.0" />
+      <point x="137.5" y="950.0" />
+      <point x="0.0" y="15.0" />
     </edge>
-    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.BankAccountsRepository">
-      <point x="-91.25" y="-37.5" />
-      <point x="113.25" y="267.0" />
-      <point x="103.5" y="267.0" />
-      <point x="0.0" y="14.5" />
+    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.BankAccountsRepository" relationship="TO_ONE">
+      <point x="91.25" y="-50.0" />
+      <point x="369.75" y="950.0" />
+      <point x="419.5" y="950.0" />
+      <point x="0.0" y="15.0" />
     </edge>
-    <edge source="com.paymybuddy.repositories.BankAccountsRepository" target="com.paymybuddy.models.BankAccount">
-      <point x="0.0" y="-14.5" />
-      <point x="0.0" y="59.5" />
+    <edge source="com.paymybuddy.models.User" target="com.paymybuddy.models.BankAccount" relationship="TO_ONE">
+      <point x="0.0" y="-248.0" />
+      <point x="137.5" y="323.0" />
+      <point x="227.75" y="323.0" />
+      <point x="-50.75" y="149.0" />
     </edge>
-    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.UsersRepository">
-      <point x="91.25" y="-37.5" />
-      <point x="295.75" y="267.0" />
-      <point x="305.5" y="267.0" />
-      <point x="0.0" y="14.5" />
+    <edge source="com.paymybuddy.repositories.UsersRepository" target="com.paymybuddy.models.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="248.0" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.AuthenticationController" target="com.paymybuddy.services.AuthenticationService" relationship="TO_ONE">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="50.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="134.5" y="131.5" />
+  <settings layout="Hierarchic" zoom="0.7" showDependencies="true" x="433.94117647058835" y="488.57142857142856" />
   <SelectedNodes>
-    <node>com.paymybuddy.controllers.AuthenticationController</node>
+    <node>com.paymybuddy.models.User</node>
   </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Inner Classes</Category>
+    <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

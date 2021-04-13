@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1302.75" y="0.0">com.paymybuddy.models.User</node>
+    <node x="404.0" y="627.0">com.paymybuddy.services.FriendService</node>
+    <node x="2146.0" y="638.0">com.paymybuddy.controllers.AuthenticationController</node>
+    <node x="1816.0" y="775.0">com.paymybuddy.controllers.UserController</node>
+    <node x="712.2522727272728" y="538.0">com.paymybuddy.repositories.TransactionRepository</node>
+    <node x="0.0" y="627.0">com.paymybuddy.services.ContactService</node>
+    <node x="208.13977272727288" y="313.0">com.paymybuddy.models.Friend</node>
+    <node x="798.0" y="627.0">com.paymybuddy.services.TransactionService</node>
+    <node x="571.7522727272728" y="280.0">com.paymybuddy.models.Transaction</node>
+    <node x="56.0" y="775.0">com.paymybuddy.controllers.ContactController</node>
+    <node x="206.63977272727288" y="538.0">com.paymybuddy.repositories.FriendsRepository</node>
+    <node x="855.5" y="775.0">com.paymybuddy.controllers.TransactionController</node>
+    <node x="1579.8125" y="538.0">com.paymybuddy.repositories.BankAccountsRepository</node>
+    <node x="733.7522727272728" y="77.5">com.paymybuddy.enums.TransactionType</node>
+    <node x="2080.8147727272726" y="538.0">com.paymybuddy.services.AuthenticationService</node>
+    <node x="1535.8125" y="302.0">com.paymybuddy.models.BankAccount</node>
+    <node x="1738.0" y="627.0">com.paymybuddy.services.UserService</node>
+    <node x="465.0" y="775.0">com.paymybuddy.controllers.FriendController</node>
+    <node x="1252.0" y="627.0">com.paymybuddy.services.BankAccountsService</node>
+    <node x="1062.0" y="538.0">com.paymybuddy.repositories.UsersRepository</node>
+    <node x="1309.5" y="775.0">com.paymybuddy.controllers.BankAccountsController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.paymybuddy.models.BankAccount" target="com.paymybuddy.models.User">
+      <point x="-73.75" y="-82.0" />
+      <point x="1609.5625" y="255.0" />
+      <point x="1527.75" y="255.0" />
+      <point x="0.0" y="115.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.TransactionService" target="com.paymybuddy.repositories.UsersRepository">
+      <point x="108.5" y="-49.0" />
+      <point x="1123.5" y="607.0" />
+      <point x="1140.5" y="607.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.FriendController" target="com.paymybuddy.services.FriendService">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.paymybuddy.repositories.BankAccountsRepository" target="com.paymybuddy.models.BankAccount">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="com.paymybuddy.repositories.TransactionRepository" target="com.paymybuddy.models.Transaction">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="com.paymybuddy.models.Transaction" target="com.paymybuddy.enums.TransactionType">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="com.paymybuddy.services.BankAccountsService" target="com.paymybuddy.repositories.UsersRepository">
+      <point x="-116.5" y="-49.0" />
+      <point x="1368.5" y="607.0" />
+      <point x="1171.9" y="607.0" />
+      <point x="31.40000000000009" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.services.FriendService" target="com.paymybuddy.repositories.UsersRepository">
+      <point x="93.5" y="-49.0" />
+      <point x="684.5" y="607.0" />
+      <point x="1109.1" y="607.0" />
+      <point x="-31.40000000000009" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.UserController" target="com.paymybuddy.services.UserService">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.UserService" target="com.paymybuddy.services.AuthenticationService">
+      <point x="97.0" y="-49.0" />
+      <point x="2029.0" y="607.0" />
+      <point x="2130.8147727272726" y="607.0" />
+      <point x="-50.0" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.services.ContactService" target="com.paymybuddy.repositories.FriendsRepository">
+      <point x="-96.0" y="-49.0" />
+      <point x="96.0" y="607.0" />
+      <point x="249.38977272727288" y="607.0" />
+      <point x="-42.75" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.services.TransactionService" target="com.paymybuddy.repositories.TransactionRepository">
+      <point x="-108.5" y="-49.0" />
+      <point x="906.5" y="587.0" />
+      <point x="812.2522727272728" y="587.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.repositories.UsersRepository" target="com.paymybuddy.models.User">
+      <point x="0.0" y="-14.5" />
+      <point x="1140.5" y="255.0" />
+      <point x="1377.75" y="255.0" />
+      <point x="-150.0" y="115.0" />
+    </edge>
+    <edge source="com.paymybuddy.repositories.FriendsRepository" target="com.paymybuddy.models.Friend">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.ContactService" target="com.paymybuddy.repositories.UsersRepository">
+      <point x="96.0" y="-49.0" />
+      <point x="288.0" y="597.0" />
+      <point x="1077.7" y="597.0" />
+      <point x="-62.799999999999955" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.ContactController" target="com.paymybuddy.services.ContactService">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.UserService" target="com.paymybuddy.repositories.UsersRepository">
+      <point x="-97.0" y="-49.0" />
+      <point x="1835.0" y="597.0" />
+      <point x="1203.3" y="597.0" />
+      <point x="62.799999999999955" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.models.User" target="com.paymybuddy.models.BankAccount">
+      <point x="149.99999999999994" y="115.0" />
+      <point x="1677.75" y="255.0" />
+      <point x="1757.0625" y="255.0" />
+      <point x="73.75" y="-82.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.BankAccountsService" target="com.paymybuddy.repositories.BankAccountsRepository">
+      <point x="116.5" y="-49.0" />
+      <point x="1601.5" y="607.0" />
+      <point x="1683.3125" y="607.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.BankAccountsController" target="com.paymybuddy.services.BankAccountsService">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.FriendService" target="com.paymybuddy.repositories.FriendsRepository">
+      <point x="-93.5" y="-49.0" />
+      <point x="497.5" y="587.0" />
+      <point x="334.8897727272729" y="587.0" />
+      <point x="42.75" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.AuthenticationController" target="com.paymybuddy.services.AuthenticationService">
+      <point x="0.0" y="-38.0" />
+      <point x="2323.5" y="607.0" />
+      <point x="2230.8147727272726" y="607.0" />
+      <point x="50.0" y="14.5" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.TransactionController" target="com.paymybuddy.services.TransactionService">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5066672126255002" x="1050.722530453111" y="353.1702582935244" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

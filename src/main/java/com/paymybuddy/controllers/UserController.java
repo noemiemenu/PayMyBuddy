@@ -1,9 +1,11 @@
 package com.paymybuddy.controllers;
 
-import com.paymybuddy.services.UserService;
+import com.paymybuddy.services.UserServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 @AllArgsConstructor
+@Controller
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 }

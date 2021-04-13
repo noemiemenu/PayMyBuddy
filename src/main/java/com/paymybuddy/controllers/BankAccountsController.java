@@ -1,9 +1,11 @@
 package com.paymybuddy.controllers;
 
-import com.paymybuddy.services.BankAccountsService;
+import com.paymybuddy.services.BankAccountsServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 @AllArgsConstructor
+@Controller
 public class BankAccountsController {
-    private final BankAccountsService bankAccountsRepository;
+    private final BankAccountsServiceImpl bankAccountsRepository;
 }
