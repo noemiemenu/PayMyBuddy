@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="348.0">com.paymybuddy.models.User</node>
+    <node x="115.5" y="1126.0">com.paymybuddy.controllers.AuthenticationController</node>
+    <node x="46.5" y="894.0">com.paymybuddy.repositories.UsersRepository</node>
+    <node x="295.0" y="581.0">com.paymybuddy.repositories.BankAccountsRepository</node>
+    <node x="177.0" y="0.0">com.paymybuddy.models.BankAccount</node>
+    <node x="96.0" y="976.0">com.paymybuddy.services.AuthenticationService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.paymybuddy.repositories.BankAccountsRepository" target="com.paymybuddy.models.BankAccount" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.0" />
+      <point x="419.5" y="323.0" />
+      <point x="329.25" y="323.0" />
+      <point x="50.75" y="149.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.UsersRepository" relationship="TO_ONE">
+      <point x="-91.25" y="-50.0" />
+      <point x="187.25" y="950.0" />
+      <point x="137.5" y="950.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.paymybuddy.services.AuthenticationService" target="com.paymybuddy.repositories.BankAccountsRepository" relationship="TO_ONE">
+      <point x="91.25" y="-50.0" />
+      <point x="369.75" y="950.0" />
+      <point x="419.5" y="950.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.paymybuddy.models.User" target="com.paymybuddy.models.BankAccount" relationship="TO_ONE">
+      <point x="0.0" y="-248.0" />
+      <point x="137.5" y="323.0" />
+      <point x="227.75" y="323.0" />
+      <point x="-50.75" y="149.0" />
+    </edge>
+    <edge source="com.paymybuddy.repositories.UsersRepository" target="com.paymybuddy.models.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="248.0" />
+    </edge>
+    <edge source="com.paymybuddy.controllers.AuthenticationController" target="com.paymybuddy.services.AuthenticationService" relationship="TO_ONE">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7" showDependencies="true" x="433.94117647058835" y="488.57142857142856" />
+  <SelectedNodes>
+    <node>com.paymybuddy.models.User</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
