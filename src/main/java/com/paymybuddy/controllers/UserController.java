@@ -1,19 +1,18 @@
 package com.paymybuddy.controllers;
 
-import com.paymybuddy.services.UserServiceImpl;
+
+import com.paymybuddy.services.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 @AllArgsConstructor
 @Controller
 public class UserController {
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     public String showProfilePage(){return null;}
 
-    public void listInfoProfile(){}
-
-    public void listBankAccounts(){}
+    public void changeProfileInfo(){}
 
     public String showHomePage(){return null;}
 

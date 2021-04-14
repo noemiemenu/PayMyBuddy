@@ -1,6 +1,7 @@
 package com.paymybuddy.services;
 
 import com.paymybuddy.repositories.FriendsRepository;
+import com.paymybuddy.services.interfaces.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Service;
 public class ContactServiceImpl implements ContactService {
     private final com.paymybuddy.repositories.UsersRepository userRepository;
     private final FriendsRepository friendsRepository;
+
+
 }
