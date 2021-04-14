@@ -8,4 +8,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BankAccountsController {
     private final BankAccountsServiceImpl bankAccountsRepository;
+
+    public String showAccountsPage(){return null;}
 }

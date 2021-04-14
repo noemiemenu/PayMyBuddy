@@ -8,4 +8,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class FriendController {
     private final FriendServiceImpl friendServiceImpl;
+
+    public String showAddFriendPage(){return null;}
+    public void AddFriend(){}
 }

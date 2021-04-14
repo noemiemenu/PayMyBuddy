@@ -13,6 +13,16 @@ public class AuthenticationController {
         return null;
     }
 
-    public void registerUser() {
+    public void registerUser() { }
+
+    public String showLogInPage(){
+        return null;
     }
+
+    public void logIn(){ }
+
+    public void logOff(){ }
+
+
+
 }

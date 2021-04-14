@@ -8,4 +8,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ContactController {
     private final ContactServiceImpl contactServiceImpl;
+
+    public String showContactPage(){return null;}
+
+    public void FriendsList(){}
+
 }

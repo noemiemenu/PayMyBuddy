@@ -8,4 +8,13 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class UserController {
     private final UserServiceImpl userServiceImpl;
+
+    public String showProfilePage(){return null;}
+
+    public void listInfoProfile(){}
+
+    public void listBankAccounts(){}
+
+    public String showHomePage(){return null;}
+
 }

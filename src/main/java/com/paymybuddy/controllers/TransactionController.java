@@ -9,4 +9,18 @@ import org.springframework.stereotype.Controller;
 public class TransactionController {
     private final TransactionServiceImpl transactionServiceImpl;
 
+    public String showTransactionPage(){
+        return null;
+    }
+
+    public void sendToBank(){
+
+    }
+    public void addToAccount(){
+
+    }
+    public void sendToFriend(){
+
+    }
+
 }
