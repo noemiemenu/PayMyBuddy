@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,9 +19,18 @@ public class Transaction {
     @GeneratedValue
     private int id;
 
-    private int bankAccountId;
+    @OneToOne
+    private BankAccount bankAccount;
+
     private LocalDateTime Date;
     private double amount;
     private String wording;
     private TransactionType type;
+
+    @OneToOne
+    private User receiver;
+
+    @OneToOne
+    private User sender;
+
 }
