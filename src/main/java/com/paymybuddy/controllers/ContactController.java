@@ -1,11 +1,17 @@
 package com.paymybuddy.controllers;
 
-import com.paymybuddy.services.ContactServiceImpl;
+
+import com.paymybuddy.services.interfaces.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 @AllArgsConstructor
 @Controller
 public class ContactController {
-    private final ContactServiceImpl contactServiceImpl;
+    private final ContactService contactService;
+
+    public String showContactPage() {
+        return null;
+    }
+
 }

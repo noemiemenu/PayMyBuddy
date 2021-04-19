@@ -1,6 +1,6 @@
 package com.paymybuddy.controllers;
 
-import com.paymybuddy.services.AuthenticationService;
+import com.paymybuddy.services.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 
@@ -13,6 +13,16 @@ public class AuthenticationController {
         return null;
     }
 
-    public void registerUser() {
+    public String showLogInPage(){
+        return null;
     }
+
+    public void registerUser() { }
+
+    public void logIn(){ }
+
+    public void logOff(){ }
+
+
+
 }

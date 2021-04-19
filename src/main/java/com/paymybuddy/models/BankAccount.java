@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Collection;
 
 @NoArgsConstructor
 @Setter
@@ -23,6 +21,9 @@ public class BankAccount {
 
     private String rib;
     private double balance;
+
+    @OneToMany
+    private Collection<Transaction> transactions;
 
     @OneToOne
     private User user;
