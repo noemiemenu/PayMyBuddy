@@ -99,6 +99,13 @@ CREATE TABLE "paymybuddy"."friends"
             ON UPDATE NO ACTION
 );;
 
+create table if not exists persistent_logins (
+    username VARCHAR(255) not null,
+    series varchar(64) primary key,
+    token varchar(64) not null,
+    last_used timestamp not null
+    );
+
 
 DROP SEQUENCE IF EXISTS "paymybuddy"."users_id_sequence";
 CREATE SEQUENCE "paymybuddy"."users_id_sequence";
