@@ -13,18 +13,18 @@
 </head>
 <body>
 <div id="login">
-    <form class="form-signin text-center" th:action="@{/login}" method="post">
+    <form class="form-signin text-center" th:action="@{/user/register}" method="post" th:object="${user}">
         <h1 class="h3 mb-5 mt-3 font-weight-normal" style="text-align: center"> PayMyBuddy</h1>
 
         <div th:if="${param.error}">
             <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
         </div>
 
-        <input type="text" id="inputfirstName" class="form-control mb-3" name="firstName" placeholder="Firstname" required="" autofocus="">
-        <input type="text" id="inputlastName" class="form-control mb-3" name="lastName" placeholder="Lastname" required="">
-        <input type="email" id="inputEmail" class="form-control mb-3" name="email" placeholder="Email address" required="">
-        <input id="date" type="text" class="form-control mb-3" placeholder="dd/mm/yyyy">
-        <input type="password" id="inputPassword" class="form-control mb-3" name="password" placeholder="Password" required="">
+        <input type="text" id="inputfirstName" class="form-control mb-3" name="firstName" placeholder="Firstname" required="" autofocus="" th:field="*{firstName}" minlength="2" maxlength="16">
+        <input type="text" id="inputlastName" class="form-control mb-3" name="lastName" placeholder="Lastname" required="" th:field="*{lastName}" minlength="2" maxlength="45">
+        <input type="email" id="inputEmail" class="form-control mb-3" name="email" placeholder="Email address" required="" th:field="*{email}">
+        <input id="date" type="text" class="form-control mb-3" placeholder="dd/mm/yyyy" th:field="*{birthdate}">
+        <input type="password" id="inputPassword" class="form-control mb-3" name="password" placeholder="Password" required="" th:field="*{password}" minlength="5" maxlength="255">
 
         <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Register</button>
     </form>
