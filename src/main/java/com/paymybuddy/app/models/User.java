@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -40,6 +43,7 @@ public class User {
 
     @Column(nullable = false)
     @JsonFormat(pattern="dd/MM/yyyy")
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     @JoinColumn(name="birthdate")
     private LocalDate birthdate;
 

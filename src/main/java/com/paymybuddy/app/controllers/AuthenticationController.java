@@ -7,11 +7,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @AllArgsConstructor
@@ -42,11 +46,14 @@ public class AuthenticationController {
 
     @PostMapping("/user/register")
     public String registerUser(User user) {
-
-        usersRepository.save(user);
+        authenticationService.registerUser(user);
 
         return "Registration ok.";
     }
 
-
+    @GetMapping(value="/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        authenticationService.logout(request, response);
+        return "redirect:/login";
+    }
 }
