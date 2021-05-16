@@ -1,8 +1,8 @@
 package com.paymybuddy.app.services;
 
-import com.paymybuddy.app.models.BankAccount;
+import com.paymybuddy.app.models.InternalBankAccount;
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.BankAccountsRepository;
+import com.paymybuddy.app.repositories.InternalBankAccountRepository;
 import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
@@ -19,17 +19,27 @@ import javax.servlet.http.HttpServletResponse;
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UsersRepository usersRepository;
-    private final BankAccountsRepository bankAccountsRepository;
     private final PasswordEncoder passwordEncoder;
+    private final InternalBankAccountRepository internalBankAccountRepository;
     private final SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
 
 
     @Override
-    public void registerUser(User user) {
+    public void registerUser(User user) throws Exception {
+        User alreadyRegisteredUser = usersRepository.findUserByEmail(user.getEmail());
+        if (alreadyRegisteredUser != null){
+            throw new Exception("User already created");
+        }
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
+        User createdUser = usersRepository.save(user);
 
-        usersRepository.save(user);
+        InternalBankAccount internalBankAccount = new InternalBankAccount();
+        internalBankAccount.setUser(createdUser);
+        internalBankAccountRepository.save(internalBankAccount);
+
+        createdUser.setInternalBankAccount(internalBankAccount);
+        usersRepository.save(createdUser);
     }
 
     @Override

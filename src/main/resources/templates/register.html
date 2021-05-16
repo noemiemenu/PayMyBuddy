@@ -20,6 +20,11 @@
             <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
         </div>
 
+        <div th:if="${param.account_already_exists}">
+            <p class="text-danger">The email is already taken, you must login with this email or create another account with a different email.</p>
+        </div>
+
+
         <input type="text" id="inputfirstName" class="form-control mb-3" name="firstName" placeholder="Firstname" required="" autofocus="" th:field="*{firstName}" minlength="2" maxlength="16">
         <input type="text" id="inputlastName" class="form-control mb-3" name="lastName" placeholder="Lastname" required="" th:field="*{lastName}" minlength="2" maxlength="45">
         <input type="email" id="inputEmail" class="form-control mb-3" name="email" placeholder="Email address" required="" th:field="*{email}">

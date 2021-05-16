@@ -29,13 +29,29 @@ CREATE TABLE "paymybuddy"."users"
 
 
 -- -----------------------------------------------------
--- Table "paymybuddy"."bank_accounts"
+-- Table "paymybuddy"."internal_bank_account"
 -- -----------------------------------------------------
-CREATE TABLE "paymybuddy"."bank_accounts"
+CREATE TABLE "paymybuddy"."internal_bank_account"
+(
+    "id"      INT            NOT NULL,
+    "balance" DECIMAL(65, 2) NOT NULL,
+    "user_id" INT            NOT NULL,
+    PRIMARY KEY ("id"),
+    CONSTRAINT "user_id"
+        FOREIGN KEY ("user_id")
+            REFERENCES "paymybuddy"."users" ("id")
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+);;
+
+-- -----------------------------------------------------
+-- Table "paymybuddy"."external_bank_account"
+-- -----------------------------------------------------
+CREATE TABLE "paymybuddy"."external_bank_account"
 (
     "id"      INT            NOT NULL,
     "rib"     VARCHAR(27)    NOT NULL,
-    "balance" DECIMAL(65, 2) NOT NULL,
+    "name"    VARCHAR(25)    NOT NULL,
     "user_id" INT            NOT NULL,
     PRIMARY KEY ("id"),
     CONSTRAINT "user_id"
@@ -52,7 +68,8 @@ CREATE TABLE "paymybuddy"."bank_accounts"
 CREATE TABLE "paymybuddy"."transactions"
 (
     "id"              BIGINT        NOT NULL,
-    "bank_account_id" INT           NOT NULL,
+    "external_bank_account_id" INT           NOT NULL,
+    "internal_bank_account_id" INT           NOT NULL,
     "date"            TIMESTAMP     NOT NULL,
     "amount"          DECIMAL(5, 2) NOT NULL,
     "wording"         TEXT          NULL,
@@ -60,9 +77,14 @@ CREATE TABLE "paymybuddy"."transactions"
     "sender_id"       INT           NOT NULL,
     "receiver_id"     INT           NOT NULL,
     PRIMARY KEY ("id"),
-    CONSTRAINT "bank_account_id"
-        FOREIGN KEY ("bank_account_id")
-            REFERENCES "paymybuddy"."bank_accounts" ("id")
+    CONSTRAINT "external_bank_account_id"
+        FOREIGN KEY ("external_bank_account_id")
+            REFERENCES "paymybuddy"."external_bank_account" ("id")
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT "internal_bank_account_id"
+        FOREIGN KEY ("internal_bank_account_id")
+            REFERENCES "paymybuddy"."internal_bank_account" ("id")
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT "sender_id"
@@ -111,11 +133,19 @@ DROP SEQUENCE IF EXISTS "paymybuddy"."users_id_sequence";
 CREATE SEQUENCE "paymybuddy"."users_id_sequence";
 ALTER TABLE "paymybuddy"."users"
     ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."users_id_sequence"');
-DROP SEQUENCE IF EXISTS "paymybuddy"."bank_accounts_id_sequence";
-CREATE SEQUENCE "paymybuddy"."bank_accounts_id_sequence";
-ALTER TABLE "paymybuddy"."bank_accounts"
-    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."bank_accounts_id_sequence"');
+DROP SEQUENCE IF EXISTS "paymybuddy"."external_bank_account_id_sequence";
+CREATE SEQUENCE "paymybuddy"."external_bank_account_id_sequence";
+ALTER TABLE "paymybuddy"."external_bank_account"
+    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."external_bank_account_id_sequence"');
+
+DROP SEQUENCE IF EXISTS "paymybuddy"."internal_bank_account_id_sequence";
+CREATE SEQUENCE "paymybuddy"."internal_bank_account_id_sequence";
+ALTER TABLE "paymybuddy"."internal_bank_account"
+    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."internal_bank_account_id_sequence"');
+
 DROP SEQUENCE IF EXISTS "paymybuddy"."friends_id_sequence";
 CREATE SEQUENCE "paymybuddy"."friends_id_sequence";
 ALTER TABLE "paymybuddy"."friends"
     ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."friends_id_sequence"');
+
+CREATE SEQUENCE hibernate_sequence START 1;

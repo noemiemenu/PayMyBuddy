@@ -7,12 +7,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class AuthenticationController {
 
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
             return "login";
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -41,14 +41,19 @@ public class AuthenticationController {
             model.addAttribute("user", new User());
             return "register";
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @PostMapping("/user/register")
-    public String registerUser(User user) {
-        authenticationService.registerUser(user);
+    public String registerUser(User user, RedirectAttributes redirectAttributes) {
+        try {
+            authenticationService.registerUser(user);
+        } catch (Exception e) {
+            redirectAttributes.addAttribute("account_already_exists", true);
+            return "redirect:/register";
+        }
 
-        return "Registration ok.";
+        return "redirect:/";
     }
 
     @GetMapping(value="/logout")

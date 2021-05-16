@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface AuthenticationService {
 
-    void registerUser(User user);
+    void registerUser(User user) throws Exception;
 
     void logIn();
 

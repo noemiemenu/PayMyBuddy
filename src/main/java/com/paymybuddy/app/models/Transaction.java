@@ -20,7 +20,10 @@ public class Transaction {
     private int id;
 
     @OneToOne
-    private BankAccount bankAccount;
+    private InternalBankAccount internalBankAccount;
+
+    @OneToOne
+    private ExternalBankAccount externalBankAccount;
 
     private LocalDateTime Date;
     private double amount;

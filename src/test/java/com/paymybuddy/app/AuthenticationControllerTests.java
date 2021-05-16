@@ -26,7 +26,7 @@ public class AuthenticationControllerTests {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void testCreateUser(){
+    public void testCreateUser() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         User user = new User();
         user.setFirstName("noemie");
@@ -41,11 +41,17 @@ public class AuthenticationControllerTests {
         assertThat(userExist.getEmail()).isEqualTo(user.getEmail());
 
     }
+
     @Test
-    public void testFindUserByEmail(){
+    public void testFindUserByEmail() {
         String email = "nm@gmail.com";
         User user = usersRepository.findUserByEmail(email);
         assertThat(user).isNotNull();
+    }
+
+    @Test
+    public void testregisterUser() {
+
     }
 
 }
