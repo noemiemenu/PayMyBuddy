@@ -13,18 +13,18 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 @Entity
-public class BankAccount {
+public class InternalBankAccount {
 
     @Id
     @GeneratedValue
     private int id;
 
-    private String rib;
-    private double balance;
+    private long balance;
 
     @OneToMany
     private Collection<Transaction> transactions;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

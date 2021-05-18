@@ -20,17 +20,20 @@ public class Transaction {
     private int id;
 
     @OneToOne
-    private BankAccount bankAccount;
+    private InternalBankAccount internalBankAccount;
+
+    @OneToOne
+    private ExternalBankAccount externalBankAccount;
 
     private LocalDateTime Date;
     private double amount;
     private String wording;
     private TransactionType type;
 
-    @OneToOne
+    @ManyToOne
     private User receiver;
 
-    @OneToOne
+    @ManyToOne
     private User sender;
 
 }

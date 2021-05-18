@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,33 +24,34 @@ public class User {
     private int id;
 
     @Column(nullable = false)
-    @JoinColumn(name="first_name")
     private String firstName;
 
     @Column(nullable = false)
-    @JoinColumn(name="last_name")
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    @JoinColumn(name="email")
     private String email;
 
     @Column(nullable = false)
-    @JoinColumn(name="password")
     private String password;
 
     @Column(nullable = false)
     @JsonFormat(pattern="dd/MM/yyyy")
-    @JoinColumn(name="birthdate")
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private LocalDate birthdate;
 
+    @OneToMany(mappedBy = "sender")
+    private Collection<Transaction> sentTransactions;
 
-    @OneToMany
-    private Collection<Transaction> transactions;
-/*
+    @OneToMany(mappedBy = "receiver")
+    private Collection<Transaction> receiveTransactions;
+
     @OneToOne(mappedBy = "user")
-    private BankAccount bankAccount;*/
+    private InternalBankAccount internalBankAccount;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
+    private Collection<ExternalBankAccount> externalBankAccounts;
+
+    @OneToMany(mappedBy = "friendUser")
     private Collection<Friend> friends;
 }
