@@ -30,10 +30,10 @@ public class Transaction {
     private String wording;
     private TransactionType type;
 
-    @OneToOne
+    @ManyToOne
     private User receiver;
 
-    @OneToOne
+    @ManyToOne
     private User sender;
 
 }

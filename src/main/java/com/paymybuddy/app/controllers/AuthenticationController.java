@@ -1,5 +1,6 @@
 package com.paymybuddy.app.controllers;
 
+import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
@@ -48,7 +49,7 @@ public class AuthenticationController {
     public String registerUser(User user, RedirectAttributes redirectAttributes) {
         try {
             authenticationService.registerUser(user);
-        } catch (Exception e) {
+        } catch (UserAlreadyCreatedException e) {
             redirectAttributes.addAttribute("account_already_exists", true);
             return "redirect:/register";
         }

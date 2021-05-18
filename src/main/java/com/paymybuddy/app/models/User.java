@@ -40,15 +40,18 @@ public class User {
     @DateTimeFormat(pattern="dd/MM/yyyy")
     private LocalDate birthdate;
 
-    @OneToMany
-    private Collection<Transaction> transactions;
+    @OneToMany(mappedBy = "sender")
+    private Collection<Transaction> sentTransactions;
+
+    @OneToMany(mappedBy = "receiver")
+    private Collection<Transaction> receiveTransactions;
 
     @OneToOne(mappedBy = "user")
     private InternalBankAccount internalBankAccount;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Collection<ExternalBankAccount> externalBankAccounts;
 
-    @OneToMany
+    @OneToMany(mappedBy = "friendUser")
     private Collection<Friend> friends;
 }

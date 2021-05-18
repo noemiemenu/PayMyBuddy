@@ -1,5 +1,6 @@
 package com.paymybuddy.app.services;
 
+import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.InternalBankAccount;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.repositories.InternalBankAccountRepository;
@@ -25,10 +26,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public void registerUser(User user) throws Exception {
+    public void registerUser(User user) throws UserAlreadyCreatedException {
         User alreadyRegisteredUser = usersRepository.findUserByEmail(user.getEmail());
         if (alreadyRegisteredUser != null){
-            throw new Exception("User already created");
+            throw new UserAlreadyCreatedException("User already created");
         }
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
