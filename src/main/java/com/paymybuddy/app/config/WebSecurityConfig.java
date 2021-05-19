@@ -19,11 +19,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    /*@Bean
-    public UserDetailsService userDetailsService(){
-        return new CustomUserDetailsService();
-    }*/
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -38,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .permitAll()
             .and().rememberMe();
-           // .tokenRepository(persistentTokenRepository());
     }
 
     @Autowired
