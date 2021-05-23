@@ -1,19 +1,38 @@
 package com.paymybuddy.app.controllers;
 
 
+import com.paymybuddy.app.models.User;
+import com.paymybuddy.app.repositories.UsersRepository;
+import com.paymybuddy.app.services.interfaces.AuthenticationService;
 import com.paymybuddy.app.services.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @AllArgsConstructor
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UsersRepository usersRepository;
+    private final AuthenticationService authenticationService;
 
-    public String showProfilePage(){return null;}
 
-    public void changeProfileInfo(){}
+    @GetMapping("/")
+    public String showHomePage(){
 
-    public String showHomePage(){return null;}
+        return "homePage";
+    }
+
+    @GetMapping(value="/profile")
+    public String showProfilePage(Model model){
+       User user = authenticationService.getCurrentLoggedUser();
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    public void changeProfileInfo(){
+    }
+
 
 }

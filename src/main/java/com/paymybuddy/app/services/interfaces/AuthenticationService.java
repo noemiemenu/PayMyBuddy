@@ -14,4 +14,5 @@ public interface AuthenticationService {
 
     void logout(HttpServletRequest request, HttpServletResponse response);
 
+    User getCurrentLoggedUser();
 }

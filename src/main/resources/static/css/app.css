@@ -1,0 +1,32 @@
+#navBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.nav-bar-element {
+    float: left;
+}
+
+.nav-bar-content {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav-bar-content:hover:not(.active) {
+    background-color: #ffffff;
+}
+
+.active {
+    background-color: cadetblue;
+}
+
+#appLogo {
+    background-color: #4CAF50;
+}
+

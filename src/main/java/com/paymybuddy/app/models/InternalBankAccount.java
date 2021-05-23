@@ -13,7 +13,7 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 @Entity
-public class InternalBankAccount {
+public class  InternalBankAccount {
 
     @Id
     @GeneratedValue

@@ -12,8 +12,11 @@ public class UserServiceImpl implements UserService {
     private final UsersRepository usersRepository;
     private final AuthenticationService authenticationService;
 
+
     @Override
     public void changeProfileInfo() {
 
+
     }
+
 }
