@@ -2,7 +2,6 @@ package com.paymybuddy.app.controllers;
 
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
-    private final UsersRepository usersRepository;
+
 
 
     @GetMapping("/login")

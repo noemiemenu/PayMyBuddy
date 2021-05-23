@@ -12,9 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
+
 
 @Service
 @AllArgsConstructor
@@ -54,5 +59,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (auth != null){
             securityContextLogoutHandler.logout(request, response, auth);
         }
+    }
+
+    public User getCurrentLoggedUser() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+        Principal principal = request.getUserPrincipal();
+        return usersRepository.findUserByEmail(principal.getName());
     }
 }
