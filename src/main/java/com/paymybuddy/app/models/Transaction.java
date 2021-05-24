@@ -19,10 +19,10 @@ public class Transaction {
     @GeneratedValue
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private InternalBankAccount internalBankAccount;
 
-    @OneToOne
+    @ManyToOne
     private ExternalBankAccount externalBankAccount;
 
     private LocalDateTime Date;

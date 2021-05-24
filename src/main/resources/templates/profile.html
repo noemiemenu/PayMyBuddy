@@ -20,24 +20,108 @@
     <li class="nav-bar-element"><a class="nav-bar-content" th:href="@{/logout}">Log off</a></li>
   </ul>
 </div>
-<tr th:each ="user : ${user}">
-  <td th:utext="${user.firstName}"></td>
-  <td th:utext="${user.lastName}"></td>
-  <td th:utext="${user.lastName}"></td>
-</tr>
-
 <div class="container">
-  <form>
-    <div class="mb-4">
-      <label for="nameOfBank" class="form-label">Name of your bank</label>
-      <input type="email" class="form-control" id="nameOfBank" aria-describedby="nameOfBank">
+  <div class="main-body mt-1">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+              <div class="mt-3">
+                <h4 th:text="${user.firstName} + ' ' + ${user.lastName}"></h4>
+                <p class="text-muted font-size-sm" th:text="'birthdate: ' + ${#dates.format(new java.util.Date(user.birthdate), 'dd/MM/YYYY')}"></p>
+                <p class="text-muted font-size-sm" th:text="'email: ' + ${user.email}"></p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <div class="mt-3">
+                <h4 th:text="'Balance: ' + ${user.getInternalBankAccount().getBalance()} + '€'"></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-m-3">
+                <h3>List of banks</h3>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Bank account name</th>
+                <th scope="col">Rib</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="externalBankAccount: ${user.getExternalBankAccounts()}">
+                <td th:text="${externalBankAccount.getName()}">Name</td>
+                <td th:text="${externalBankAccount.getRib()}">Rib</td>
+                <td>
+                  <form th:method="delete" th:action="@{/bank/delete/{externalBankAccountId}(externalBankAccountId=${externalBankAccount.getId()})}">
+                    <div class="col-sm-9 text-secondary">
+                      <input type="submit" class="btn btn-danger px-1" value="delete">
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-m-12">
+            <div class="card">
+              <form th:action="@{/bank/new}" method="post">
+                <div class="card-body">
+                  <div class="row mb-3">
+                    <div class="col-m-3">
+                      <h3>Add new bank account</h3>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Bank account name:</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input required type="text" class="form-control" name="bankAccountName" autofocus>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Rib:</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <input required type="text" class="form-control" name="rib">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input type="submit" class="btn btn-primary px-4" value="Add bank">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
     </div>
-    <div class="mb-4">
-      <label for="rib" class="form-label">Rib :</label>
-      <input type="password" class="form-control" id="rib">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
 </div>
 
 </body>
