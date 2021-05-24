@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -19,10 +23,10 @@ public class Transaction {
     @GeneratedValue
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private InternalBankAccount internalBankAccount;
 
-    @OneToOne
+    @ManyToOne
     private ExternalBankAccount externalBankAccount;
 
     private LocalDateTime Date;

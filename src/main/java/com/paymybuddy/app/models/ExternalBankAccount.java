@@ -13,7 +13,7 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 @Entity
-@Table(name = "external_bank_accounts")
+@Table(name = "external_bank_account")
 public class ExternalBankAccount {
 
     @Id
@@ -24,7 +24,7 @@ public class ExternalBankAccount {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "externalBankAccount")
     private Collection<Transaction> transactions;
 
     @ManyToOne

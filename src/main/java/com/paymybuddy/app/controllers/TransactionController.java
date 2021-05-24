@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TransactionController {
     private final TransactionService transactionService;
 
-    @GetMapping(value="/transaction")
-    public String showTransactionPage(){
+    @GetMapping(value = "/transaction")
+    public String showTransactionPage() {
         return "transaction";
     }
 
-    public void sendToBank(){
+    public void sendToBank() {
 
     }
-    public void addToAccount(){
+
+    public void addToAccount() {
 
     }
-    public void sendToFriend(){
+
+    public void sendToFriend() {
 
     }
 

@@ -36,8 +36,8 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    @JsonFormat(pattern="dd/MM/yyyy")
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
 
     @OneToMany(mappedBy = "sender")

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
-public class AuthenticationControllerTests {
+public class AuthenticationTests {
 
     @Autowired
     private UsersRepository usersRepository;

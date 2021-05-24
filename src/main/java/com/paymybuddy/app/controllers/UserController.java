@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @AllArgsConstructor
 @Controller
 public class UserController {
@@ -19,19 +21,19 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String showHomePage(){
+    public String showHomePage() {
 
         return "homePage";
     }
 
-    @GetMapping(value="/profile")
-    public String showProfilePage(Model model){
-       User user = authenticationService.getCurrentLoggedUser();
+    @GetMapping(value = "/profile")
+    public String showProfilePage(Model model, HttpServletRequest request) {
+        User user = authenticationService.getCurrentLoggedUser(request);
         model.addAttribute("user", user);
         return "profile";
     }
 
-    public void changeProfileInfo(){
+    public void changeProfileInfo() {
     }
 
 
