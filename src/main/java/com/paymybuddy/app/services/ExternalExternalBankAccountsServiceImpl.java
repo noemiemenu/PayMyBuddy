@@ -17,8 +17,7 @@ public class ExternalExternalBankAccountsServiceImpl implements ExternalBankAcco
     private final AuthenticationServiceImpl authenticationService;
 
     @Override
-    public void addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm) {
-        User user = authenticationService.getCurrentLoggedUser();
+    public void addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, User user) {
         ExternalBankAccount externalBankAccount = new ExternalBankAccount();
         externalBankAccount.setUser(user);
         externalBankAccount.setName(newExternalBankAccountForm.getBankAccountName());

@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FriendController {
     private final FriendService friendService;
 
-    @GetMapping(value="/friends")
-    public String showAddFriendPage(){
+    @GetMapping(value = "/friends")
+    public String showAddFriendPage() {
         return "friends";
     }
 
 
-    public void AddFriend(){}
+    public void AddFriend() {
+    }
 }

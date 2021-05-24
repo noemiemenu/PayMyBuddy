@@ -10,9 +10,7 @@ public interface AuthenticationService {
 
     void registerUser(User user) throws UserAlreadyCreatedException;
 
-    void logIn();
-
     void logout(HttpServletRequest request, HttpServletResponse response);
 
-    User getCurrentLoggedUser();
+    User getCurrentLoggedUser(HttpServletRequest request);
 }

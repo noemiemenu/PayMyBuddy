@@ -24,9 +24,8 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
 
-
     @GetMapping("/login")
-    public String showLogInPage(){
+    public String showLogInPage() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
@@ -37,7 +36,7 @@ public class AuthenticationController {
     @GetMapping("/register")
     public String showRegisterPage(@RequestParam(required = false) String error, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken){
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("user", new User());
             return "register";
         }
@@ -56,7 +55,7 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
-    @GetMapping(value="/logout")
+    @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         authenticationService.logout(request, response);
         return "redirect:/login";

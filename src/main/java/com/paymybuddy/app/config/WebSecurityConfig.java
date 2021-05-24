@@ -22,17 +22,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/register").permitAll()
-            .antMatchers("/user/register").permitAll()
-            .antMatchers("/css/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-            .loginPage("/login")
+                .antMatchers("/register").permitAll()
+                .antMatchers("/user/register").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
                 .failureUrl("/login?failure=true")
                 .usernameParameter("email")
                 .permitAll()
-            .and().rememberMe();
+                .and().rememberMe();
     }
 
     @Autowired
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
