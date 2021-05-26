@@ -43,6 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select email, password from users where email = ?;"); //SQL query
     }
 
+    /**
+     * BCryptPasswordEncoder: Bcrypt uses hash algorithm to store password
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

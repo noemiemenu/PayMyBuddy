@@ -54,4 +54,8 @@ public class User {
 
     @OneToMany(mappedBy = "friendUser")
     private Collection<Friend> friends;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

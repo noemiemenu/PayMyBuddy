@@ -19,9 +19,9 @@ public class InternalBankAccount {
     @GeneratedValue
     private int id;
 
-    private long balance;
+    private double balance;
 
-    @OneToMany
+    @OneToMany(mappedBy = "internalBankAccount")
     private Collection<Transaction> transactions;
 
     @OneToOne
