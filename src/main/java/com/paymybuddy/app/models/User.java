@@ -52,7 +52,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<ExternalBankAccount> externalBankAccounts;
 
-    @OneToMany(mappedBy = "friendUser")
+    @OneToMany
+    @JoinColumn(name = "user_id")
     private Collection<Friend> friends;
 
     public String getFullName() {

@@ -3,7 +3,7 @@
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0" name="viewport">
-    <title>Friends - PayMyBuddy</title>
+    <title>Friend - PayMyBuddy</title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" rel="stylesheet"
           type="text/css">
@@ -19,6 +19,78 @@
         <li class="nav-bar-element"><a class="nav-bar-content active" th:href="@{/friends}">Friends</a></li>
         <li class="nav-bar-element"><a class="nav-bar-content" th:href="@{/logout}">Log off</a></li>
     </ul>
+</div>
+<div class="container">
+    <div class="main-body mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-m-3">
+                                <h3>List friend's</h3>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="friend: ${friends}">
+                                <td th:text="${friend.getFriendUser().getFullName()}">Full name</td>
+                                <td th:text="${friend.getFriendUser().getEmail()}">Email</td>
+<!--                               <td>-->
+<!--                                    <form th:action="@{/friend/delete/{externalBankAccountId}(externalBankAccountId=${externalBankAccount.getId()})}"-->
+<!--                                          th:method="delete">-->
+<!--                                        <div class="col-sm-9 text-secondary">-->
+<!--                                            <input class="btn btn-danger px-1" type="submit" value="delete">-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-m-12">
+                        <div class="card">
+                            <div th:if="${param.error}">
+                                <p class="text-danger" th:text="${param.error}"></p>
+                            </div>
+                            <form method="get" th:action="@{/friend/new}">
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-m-3">
+                                            <h3>Add new friend</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-2">
+                                            <h6 class="mb-0">friend's email:</h6>
+                                        </div>
+                                        <div class="col-sm-10 text-secondary">
+                                            <input class="form-control" name="friendEmail" required type="email">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input class="btn btn-primary px-4" type="submit" value="Add friend">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

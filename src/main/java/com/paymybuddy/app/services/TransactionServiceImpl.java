@@ -1,6 +1,7 @@
 package com.paymybuddy.app.services;
 
 import com.paymybuddy.app.enums.TransactionType;
+import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
 import com.paymybuddy.app.forms.TransactionForm;
 import com.paymybuddy.app.models.ExternalBankAccount;
 import com.paymybuddy.app.models.InternalBankAccount;
@@ -27,13 +28,20 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public void addToInternalAccount(TransactionForm transactionForm, User user) {
+    public void addToInternalAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException {
+
+        if (transactionForm.getAmount() <= 0){
+            throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
+        }
+
+
         InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
         ExternalBankAccount userExternalBankAccount = user.getExternalBankAccounts()
                 .stream()
                 .filter((ExternalBankAccount externalBankAccount)
                         -> transactionForm.getExternalBankAccountId() == externalBankAccount.getId())
                 .findAny().get();
+
         Transaction transaction = new Transaction();
         transaction.setWording(transactionForm.getWording());
         transaction.setDate(LocalDateTime.now());

@@ -20,10 +20,6 @@ public class ExternalBankAccountsController {
 
     private final AuthenticationService authenticationService;
 
-    public String showAccountsPage() {
-        return null;
-    }
-
 
     @PostMapping("/bank/new")
     public String addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, HttpServletRequest request) {
