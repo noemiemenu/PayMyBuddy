@@ -1,9 +1,13 @@
 package com.paymybuddy.app.services.interfaces;
 
-public interface TransactionService {
-    void sendToBank();
+import com.paymybuddy.app.forms.TransactionForm;
+import com.paymybuddy.app.models.User;
 
-    void addToAccount();
+public interface TransactionService {
+
+    void sendToExternalBankAccount(TransactionForm transactionForm, User user);
+
+    void addToInternalAccount(TransactionForm transactionForm, User user);
 
     void sendToFriend();
 }

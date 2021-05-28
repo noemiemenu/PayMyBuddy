@@ -33,8 +33,6 @@ public class UserController {
         return "profile";
     }
 
-    public void changeProfileInfo() {
-    }
 
 
 }

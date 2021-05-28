@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
@@ -40,4 +38,16 @@ public class Transaction {
     @ManyToOne
     private User sender;
 
+
+    public String formatTransactionType() {
+        switch (type) {
+            case ADD_TO_INTERNAL_ACCOUNT:
+                return "Add to paymybuddy account from external bank account: " + externalBankAccount.getName();
+            case SEND_TO_BANK:
+                return "Sent to bank: " + externalBankAccount.getName();
+            case SEND_TO_FRIEND:
+                return "Sent to: " + receiver.getFullName();
+        }
+        return null;
+    }
 }
