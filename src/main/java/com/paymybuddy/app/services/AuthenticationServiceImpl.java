@@ -39,9 +39,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         InternalBankAccount internalBankAccount = new InternalBankAccount();
         internalBankAccount.setUser(createdUser);
         internalBankAccountRepository.save(internalBankAccount);
-
-        createdUser.setInternalBankAccount(internalBankAccount);
-        usersRepository.save(createdUser);
     }
 
     @Override
