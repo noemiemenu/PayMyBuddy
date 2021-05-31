@@ -1,6 +1,7 @@
 package com.paymybuddy.app.controllers;
 
 
+import com.paymybuddy.app.exceptions.InsufficientBalanceException;
 import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
 import com.paymybuddy.app.forms.TransactionForm;
 import com.paymybuddy.app.models.User;
@@ -49,9 +50,13 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction/external/send")
-    public String sendMoneyToExternalBankAccount(TransactionForm transactionForm, HttpServletRequest request) {
+    public String sendMoneyToExternalBankAccount(TransactionForm transactionForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
-        transactionService.sendToExternalBankAccount(transactionForm, user);
+        try {
+            transactionService.sendToExternalBankAccount(transactionForm, user);
+        } catch (NegativeTransactionAmountException | InsufficientBalanceException e) {
+            redirectAttributes.addAttribute("error_send_to_bank_account", e.getMessage());
+        }
         return "redirect:/transaction";
     }
 

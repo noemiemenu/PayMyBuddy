@@ -34,8 +34,7 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">First name</th>
-                                <th scope="col">Last name</th>
+                                <th scope="col">Full name</th>
                                 <th scope="col">Email</th>
                             </tr>
                             </thead>
@@ -43,14 +42,14 @@
                             <tr th:each="friend: ${friends}">
                                 <td th:text="${friend.getFriendUser().getFullName()}">Full name</td>
                                 <td th:text="${friend.getFriendUser().getEmail()}">Email</td>
-<!--                               <td>-->
-<!--                                    <form th:action="@{/friend/delete/{externalBankAccountId}(externalBankAccountId=${externalBankAccount.getId()})}"-->
-<!--                                          th:method="delete">-->
-<!--                                        <div class="col-sm-9 text-secondary">-->
-<!--                                            <input class="btn btn-danger px-1" type="submit" value="delete">-->
-<!--                                        </div>-->
-<!--                                    </form>-->
-<!--                                </td>-->
+                              <!-- <td>
+                                    <form th:action="@{/friend/delete/{externalBankAccountId}(externalBankAccountId=${externalBankAccount.getId()})}"
+                                          th:method="delete">
+                                        <div class="col-sm-9 text-secondary">
+                                            <input class="btn btn-danger px-1" type="submit" value="delete">
+                                        </div>
+                                    </form>
+                               </td>-->
                             </tr>
                             </tbody>
                         </table>
