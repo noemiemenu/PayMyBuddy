@@ -1,6 +1,7 @@
 package com.paymybuddy.app.services;
 
 import com.paymybuddy.app.enums.TransactionType;
+import com.paymybuddy.app.exceptions.InsufficientBalanceException;
 import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
 import com.paymybuddy.app.forms.TransactionForm;
 import com.paymybuddy.app.models.ExternalBankAccount;
@@ -22,18 +23,17 @@ public class TransactionServiceImpl implements TransactionService {
     private final InternalBankAccountRepository internalBankAccountRepository;
 
 
-    public void computeTransactionAmountWithFee(Transaction transaction, TransactionForm transactionForm) {
-        transaction.setAmount(transactionForm.getAmount() * 0.995);
+    public double computeTransactionAmountWithFee(User user, TransactionForm transactionForm) {
+        return user.getInternalBankAccount().getBalance() - (transactionForm.getAmount() * 1.005);
     }
 
 
     @Override
     public void addToInternalAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException {
 
-        if (transactionForm.getAmount() <= 0){
+        if (transactionForm.getAmount() <= 0) {
             throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
         }
-
 
         InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
         ExternalBankAccount userExternalBankAccount = user.getExternalBankAccounts()
@@ -50,15 +50,24 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setReceiver(user);
         transaction.setSender(user);
         transaction.setType(TransactionType.ADD_TO_INTERNAL_ACCOUNT);
-        computeTransactionAmountWithFee(transaction, transactionForm);
+        transaction.setAmount(transactionForm.getAmount() * 0.995);
         transactionsRepository.save(transaction);
 
-        userInternalBankAccount.setBalance(userInternalBankAccount.getBalance()+ transaction.getAmount());
+        userInternalBankAccount.setBalance(userInternalBankAccount.getBalance() + transaction.getAmount());
         internalBankAccountRepository.save(userInternalBankAccount);
     }
 
     @Override
-    public void sendToExternalBankAccount(TransactionForm transactionForm, User user) {
+    public void sendToExternalBankAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException {
+
+        if (transactionForm.getAmount() <= 0) {
+            throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
+        }
+
+        if (computeTransactionAmountWithFee(user, transactionForm) < 0) {
+            throw new InsufficientBalanceException("the account balance is insufficient: " + user.getInternalBankAccount().getBalance());
+        }
+
         InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
 
         ExternalBankAccount userExternalBankAccount = user.getExternalBankAccounts()
@@ -72,13 +81,13 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setDate(LocalDateTime.now());
         transaction.setInternalBankAccount(userInternalBankAccount);
         transaction.setExternalBankAccount(userExternalBankAccount);
+        transaction.setAmount(transactionForm.getAmount());
         transaction.setReceiver(user);
         transaction.setSender(user);
         transaction.setType(TransactionType.SEND_TO_BANK);
-        computeTransactionAmountWithFee(transaction, transactionForm);
         transactionsRepository.save(transaction);
 
-        userInternalBankAccount.setBalance(userInternalBankAccount.getBalance()-transaction.getAmount());
+        userInternalBankAccount.setBalance(computeTransactionAmountWithFee(user, transactionForm));
         internalBankAccountRepository.save(userInternalBankAccount);
     }
 
