@@ -39,15 +39,33 @@ public class Transaction {
     private User sender;
 
 
-    public String formatTransactionType() {
+    public String formatTransactionType(int currentUserId) {
         switch (type) {
             case ADD_TO_INTERNAL_ACCOUNT:
                 return "Add to paymybuddy account from external bank account: " + externalBankAccount.getName();
             case SEND_TO_BANK:
                 return "Sent to bank: " + externalBankAccount.getName();
             case SEND_TO_FRIEND:
+                if (currentUserId == receiver.getId()) {
+                    return "Receive from: " + sender.getFullName();
+                }
+
                 return "Sent to: " + receiver.getFullName();
         }
         return null;
+    }
+
+    public String getSenderFullName(){
+        if (sender == null){
+            return "";
+        }
+        return sender.getFullName();
+    }
+
+    public String getReceiverFullName(){
+        if (receiver == null){
+            return "";
+        }
+        return receiver.getFullName();
     }
 }

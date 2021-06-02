@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-m-12">
                         <div class="card mt-4">
-                            <form method="post" th:action="@{/transaction/sendToFriend}">
+                            <form method="post" th:action="@{/transaction/friend/new}">
                                 <div class="card-body">
                                     <div class="row mb-3">
                                         <div class="col-m-3">
@@ -96,18 +96,12 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
-                                            <h6 class="mb-1">First name:</h6>
+                                            <h6 class="mb-1">friend:</h6>
                                         </div>
-                                        <div class="col-sm-12 text-secondary">
-                                            <input class="form-control" name="firstName" required type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-6">
-                                            <h6 class="mb-1">Last name:</h6>
-                                        </div>
-                                        <div class="col-sm-12 text-secondary">
-                                            <input class="form-control" name="lastName" required type="text">
+                                        <div class="col-sm-12">
+                                            <select class="form-select" aria-label="select a friend" name="friendEmail">
+                                                <option th:each="friend : ${friends}" th:value="${friend.getFriendUser().getEmail()}" th:text="${friend.getFriendUser().getFullName()} + ' (' + ${friend.getFriendUser().getEmail()} + ')'"></option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -123,8 +117,8 @@
                                             <h6 class="mb-1">Amount:</h6>
                                         </div>
                                         <div class="input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-text">.00 €</span>
+                                            <input name="amount" type="text" class="form-control" required>
+                                            <span class="input-group-text">€</span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -177,7 +171,7 @@
                                         </div>
                                         <div class="input-group">
                                             <input name="amount" type="text" class="form-control" required>
-                                            <span class="input-group-text">.00 €</span>
+                                            <span class="input-group-text">€</span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -211,13 +205,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="receiveTransaction : ${receiveTransactions}">
-                                <td th:text="${#dates.format(new java.util.Date(receiveTransaction.getDate()), 'dd/MM/YYYY hh:mm:ss')}"></td>
-                                <td th:text="${receiveTransaction.formatTransactionType()}"></td>
-                                <td th:text="${receiveTransaction.getAmount()}"></td>
-                                <td th:text="${receiveTransaction.getWording()}"></td>
-                                <td th:text="${receiveTransaction.getSender().getFullName()}"></td>
-                                <td th:text="${receiveTransaction.getReceiver().getFullName()}"></td>
+                            <tr th:each="transaction : ${transactions}">
+                                <td th:text="${#dates.format(new java.util.Date(transaction.getDate()), 'dd/MM/YYYY hh:mm:ss')}"></td>
+                                <td th:text="${transaction.formatTransactionType(currentUserId)}"></td>
+                                <td th:text="${transaction.getAmount()}"></td>
+                                <td th:text="${transaction.getWording()}"></td>
+                                <td th:text="${transaction.getSenderFullName()}"></td>
+                                <td th:text="${transaction.getReceiverFullName()}"></td>
                             </tr>
                             </tbody>
                         </table>

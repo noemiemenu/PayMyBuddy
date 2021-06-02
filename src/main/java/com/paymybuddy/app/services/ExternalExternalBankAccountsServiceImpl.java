@@ -1,5 +1,6 @@
 package com.paymybuddy.app.services;
 
+import com.paymybuddy.app.exceptions.BankAccountAlreadyCreatedException;
 import com.paymybuddy.app.forms.NewExternalBankAccountForm;
 import com.paymybuddy.app.models.ExternalBankAccount;
 import com.paymybuddy.app.models.User;
@@ -15,12 +16,18 @@ public class ExternalExternalBankAccountsServiceImpl implements ExternalBankAcco
 
 
     @Override
-    public void addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, User user) {
-        ExternalBankAccount externalBankAccount = new ExternalBankAccount();
-        externalBankAccount.setUser(user);
-        externalBankAccount.setName(newExternalBankAccountForm.getBankAccountName());
-        externalBankAccount.setRib(newExternalBankAccountForm.getRib());
-        externalBankAccountsRepository.save(externalBankAccount);
+    public void addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, User user) throws BankAccountAlreadyCreatedException {
+
+
+        if (user.getExternalBankAccounts().stream().anyMatch(externalBankAccount -> externalBankAccount.getName().equals(newExternalBankAccountForm.getBankAccountName()))){
+            throw new BankAccountAlreadyCreatedException("Bank account already created");
+        }
+
+        ExternalBankAccount newExternalBankAccount = new ExternalBankAccount();
+        newExternalBankAccount.setUser(user);
+        newExternalBankAccount.setName(newExternalBankAccountForm.getBankAccountName());
+        newExternalBankAccount.setRib(newExternalBankAccountForm.getRib());
+        externalBankAccountsRepository.save(newExternalBankAccount);
 
     }
 
