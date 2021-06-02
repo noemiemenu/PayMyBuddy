@@ -68,25 +68,15 @@ CREATE TABLE "paymybuddy"."external_bank_account"
 CREATE TABLE "paymybuddy"."transactions"
 (
     "id"              BIGINT        NOT NULL,
-    "external_bank_account_id" INT           NOT NULL,
-    "internal_bank_account_id" INT           NOT NULL,
+    "external_bank_account_id" INT           NULL,
+    "internal_bank_account_id" INT           NULL,
     "date"            TIMESTAMP     NOT NULL,
     "amount"          DECIMAL(5, 2) NOT NULL,
     "wording"         TEXT          NULL,
     "type"            VARCHAR(45)   NOT NULL,
-    "sender_id"       INT           NOT NULL,
+    "sender_id"       INT           NULL,
     "receiver_id"     INT           NOT NULL,
     PRIMARY KEY ("id"),
-    CONSTRAINT "external_bank_account_id"
-        FOREIGN KEY ("external_bank_account_id")
-            REFERENCES "paymybuddy"."external_bank_account" ("id")
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-    CONSTRAINT "internal_bank_account_id"
-        FOREIGN KEY ("internal_bank_account_id")
-            REFERENCES "paymybuddy"."internal_bank_account" ("id")
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
     CONSTRAINT "sender_id"
         FOREIGN KEY ("sender_id")
             REFERENCES "paymybuddy"."users" ("id")

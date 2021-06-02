@@ -7,9 +7,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TransactionForm {
+public class TransactionForm extends AbstractTransactionForm {
 
     private int externalBankAccountId;
-    private double amount;
-    private String wording;
+
 }

@@ -11,8 +11,6 @@ import com.paymybuddy.app.services.interfaces.FriendService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @AllArgsConstructor
 @Service
 public class FriendServiceImpl implements FriendService {
@@ -34,14 +32,6 @@ public class FriendServiceImpl implements FriendService {
         Friend localRelation = new Friend();
         localRelation.setUser(currentUser);
         localRelation.setFriendUser(newFriend);
-
-        Friend reverseRelation = new Friend();
-        reverseRelation.setUser(newFriend);
-        reverseRelation.setFriendUser(currentUser);
-
-        friendsRepository.saveAll(new ArrayList<>() {{
-            add(reverseRelation);
-            add(localRelation);
-        }});
+        friendsRepository.save(localRelation);
     }
 }
