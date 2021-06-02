@@ -28,7 +28,7 @@ public class ExternalBankAccountsController {
         try {
             externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user);
         } catch (BankAccountAlreadyCreatedException e) {
-            redirectAttributes.addAttribute("error_bank_account_already_created", e);
+            redirectAttributes.addAttribute("error_bank_account_already_created", e.getMessage());
         }
         return "redirect:/profile";
     }

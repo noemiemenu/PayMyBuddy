@@ -7,8 +7,6 @@ import com.paymybuddy.app.forms.SendMoneyToFriendForm;
 import com.paymybuddy.app.forms.TransactionForm;
 import com.paymybuddy.app.models.Transaction;
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.InternalBankAccountRepository;
-import com.paymybuddy.app.repositories.TransactionsRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
 import com.paymybuddy.app.services.interfaces.TransactionService;
 import lombok.AllArgsConstructor;
@@ -29,8 +27,6 @@ import java.util.stream.Stream;
 public class TransactionController {
     private final TransactionService transactionService;
     private final AuthenticationService authenticationService;
-    private final TransactionsRepository transactionsRepository;
-    private final InternalBankAccountRepository internalBankAccountRepository;
 
 
     @GetMapping(value = "/transaction")
@@ -77,9 +73,14 @@ public class TransactionController {
 
 
     @PostMapping("/transaction/friend/new")
-    public String sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes) throws NegativeTransactionAmountException {
+    public String sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
-        transactionService.sendToFriend(sendMoneyToFriendForm, user);
+        try {
+            transactionService.sendToFriend(sendMoneyToFriendForm, user);
+        } catch (NegativeTransactionAmountException | InsufficientBalanceException e) {
+            redirectAttributes.addAttribute("error_send_to_friend",e.getMessage());
+        }
+
         return "redirect:/transaction";
     }
 

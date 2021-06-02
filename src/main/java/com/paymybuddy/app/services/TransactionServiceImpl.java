@@ -94,10 +94,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException {
+    public void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException {
+
         if (sendMoneyToFriendForm.getAmount() <= 0) {
             throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
         }
+        if (computeTransactionAmountWithFee(user, sendMoneyToFriendForm) < 0) {
+            throw new InsufficientBalanceException("the account balance is insufficient: " + user.getInternalBankAccount().getBalance());
+        }
+
         User userFriend = user.getFriends()
                 .stream()
                 .filter(friend -> friend.getFriendUser().getEmail().equals(sendMoneyToFriendForm.getFriendEmail()))

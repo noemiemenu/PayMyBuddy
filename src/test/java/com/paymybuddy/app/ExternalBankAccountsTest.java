@@ -1,5 +1,6 @@
 package com.paymybuddy.app;
 
+import com.paymybuddy.app.exceptions.BankAccountAlreadyCreatedException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.forms.NewExternalBankAccountForm;
 import com.paymybuddy.app.models.ExternalBankAccount;
@@ -56,7 +57,7 @@ public class ExternalBankAccountsTest {
 
 
     @Test
-    public void addBankAccountTest() {
+    public void addBankAccountTest() throws BankAccountAlreadyCreatedException {
         NewExternalBankAccountForm newExternalBankAccountForm = new NewExternalBankAccountForm("lcl", "123456789");
 
         externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user);
@@ -69,7 +70,7 @@ public class ExternalBankAccountsTest {
     }
 
     @Test
-    public void deleteBankAccountTest(){
+    public void deleteBankAccountTest() throws BankAccountAlreadyCreatedException {
         NewExternalBankAccountForm newExternalBankAccountForm = new NewExternalBankAccountForm("lcl", "123456789");
         externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user);
         Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountByUserId(user.getId());
@@ -81,4 +82,5 @@ public class ExternalBankAccountsTest {
 
         assertTrue(externalBankAccounts.isEmpty());
     }
+
 }

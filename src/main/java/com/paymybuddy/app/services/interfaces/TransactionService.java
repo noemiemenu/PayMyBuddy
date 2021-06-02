@@ -12,5 +12,5 @@ public interface TransactionService {
 
     void addToInternalAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException;
 
-    void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException;
+    void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException;
 }

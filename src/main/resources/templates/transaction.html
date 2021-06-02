@@ -112,6 +112,9 @@
                                             <input class="form-control" name="wording" required type="text">
                                         </div>
                                     </div>
+                                    <div th:if="${param.error_send_to_friend}">
+                                        <p class="text-danger" th:text="${param.error_send_to_friend}"></p>
+                                    </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
                                             <h6 class="mb-1">Amount:</h6>
