@@ -22,8 +22,8 @@ public class UserController {
 
     @GetMapping("/")
     public String showHomePage() {
-
         return "homePage";
+
     }
 
     @GetMapping(value = "/profile")

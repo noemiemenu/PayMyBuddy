@@ -7,4 +7,3 @@ Appli qui permet aux clients de transférer de l'argent pour gérer leurs financ
 ```bash
 docker run --name paymybuddy-postgres -p 5432:5432 -e POSTGRES_PASSWORD=paymybuddy -e POSTGRES_USER=paymybuddy -e POSTGRES_DB=paymybuddy -d postgres
 ```
-

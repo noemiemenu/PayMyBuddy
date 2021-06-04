@@ -10,7 +10,6 @@ import com.paymybuddy.app.models.ExternalBankAccount;
 import com.paymybuddy.app.models.InternalBankAccount;
 import com.paymybuddy.app.models.Transaction;
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.FriendsRepository;
 import com.paymybuddy.app.repositories.InternalBankAccountRepository;
 import com.paymybuddy.app.repositories.TransactionsRepository;
 import com.paymybuddy.app.services.interfaces.TransactionService;
@@ -24,8 +23,7 @@ import java.time.LocalDateTime;
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionsRepository transactionsRepository;
     private final InternalBankAccountRepository internalBankAccountRepository;
-    private final FriendsRepository friendsRepository;
-
+    
 
     public double computeTransactionAmountWithFee(User user, AbstractTransactionForm transactionForm) {
         return user.getInternalBankAccount().getBalance() - (transactionForm.getAmount() * 1.005);

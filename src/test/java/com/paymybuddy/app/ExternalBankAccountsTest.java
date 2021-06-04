@@ -64,6 +64,7 @@ public class ExternalBankAccountsTest {
         Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountByUserId(user.getId());
         ExternalBankAccount externalBankAccount = ((List<ExternalBankAccount>) externalBankAccounts).get(0);
 
+
         assertNotNull(externalBankAccount);
         assertEquals(externalBankAccount.getName(), "lcl");
         assertEquals(externalBankAccount.getRib(), "123456789");
