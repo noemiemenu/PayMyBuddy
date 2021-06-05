@@ -47,7 +47,7 @@ public class ExternalBankAccountsTest {
         User user = new User();
         user.setFirstName("noemie");
         user.setLastName("menu");
-        user.setEmail("nm@gmail.com");
+        user.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         user.setPassword("nm2021");
         user.setBirthdate(LocalDate.parse("29-04-2019", formatter));
 
@@ -57,11 +57,11 @@ public class ExternalBankAccountsTest {
 
 
     @Test
-    public void addBankAccountTest() throws BankAccountAlreadyCreatedException {
+    public void addBankAccountTest() {
         NewExternalBankAccountForm newExternalBankAccountForm = new NewExternalBankAccountForm("lcl", "123456789");
 
-        externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user);
-        Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountByUserId(user.getId());
+        assertDoesNotThrow(() -> externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user));
+        Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountsByUserId(user.getId());
         ExternalBankAccount externalBankAccount = ((List<ExternalBankAccount>) externalBankAccounts).get(0);
 
 
@@ -71,17 +71,25 @@ public class ExternalBankAccountsTest {
     }
 
     @Test
-    public void deleteBankAccountTest() throws BankAccountAlreadyCreatedException {
+    public void deleteBankAccountTest() {
         NewExternalBankAccountForm newExternalBankAccountForm = new NewExternalBankAccountForm("lcl", "123456789");
-        externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user);
-        Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountByUserId(user.getId());
+        assertDoesNotThrow(() -> externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user));
+        Collection<ExternalBankAccount> externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountsByUserId(user.getId());
         ExternalBankAccount externalBankAccount = ((List<ExternalBankAccount>) externalBankAccounts).get(0);
 
         externalBankAccountsService.deleteBankAccount(externalBankAccount.getId());
 
-        externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountByUserId(user.getId());
+        externalBankAccounts = externalBankAccountsRepository.findExternalBankAccountsByUserId(user.getId());
 
         assertTrue(externalBankAccounts.isEmpty());
     }
 
+    @Test
+    public void addToBankAccount_must_throw_BankAccountAlreadyCreatedException(){
+        NewExternalBankAccountForm newExternalBankAccountForm = new NewExternalBankAccountForm("lcl", "123456789");
+        assertDoesNotThrow(() -> externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user));
+        this.user.setExternalBankAccounts(externalBankAccountsRepository.findExternalBankAccountsByUserId(user.getId()));
+        assertThrows(BankAccountAlreadyCreatedException.class, () -> externalBankAccountsService.addBankAccount(newExternalBankAccountForm, user));
+
+    }
 }

@@ -2,9 +2,7 @@ package com.paymybuddy.app.controllers;
 
 
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
-import com.paymybuddy.app.services.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 @Controller
 public class UserController {
-    private final UserService userService;
-    private final UsersRepository usersRepository;
     private final AuthenticationService authenticationService;
 
 

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface InternalBankAccountRepository extends CrudRepository<InternalBankAccount, Integer> {
 
 
+    InternalBankAccount findByUserId(int userId);
 }

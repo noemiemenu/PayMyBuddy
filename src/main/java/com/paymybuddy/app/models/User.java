@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @AllArgsConstructor
@@ -41,20 +42,20 @@ public class User {
     private LocalDate birthdate;
 
     @OneToMany(mappedBy = "sender")
-    private Collection<Transaction> sentTransactions;
+    private Collection<Transaction> sentTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver")
-    private Collection<Transaction> receiveTransactions;
+    private Collection<Transaction> receiveTransactions = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private InternalBankAccount internalBankAccount;
 
     @OneToMany(mappedBy = "user")
-    private Collection<ExternalBankAccount> externalBankAccounts;
+    private Collection<ExternalBankAccount> externalBankAccounts = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private Collection<Friend> friends;
+    private Collection<Friend> friends = new ArrayList<>();
 
     public String getFullName() {
         return firstName + " " + lastName;

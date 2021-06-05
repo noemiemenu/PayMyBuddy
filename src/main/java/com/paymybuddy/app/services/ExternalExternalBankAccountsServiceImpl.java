@@ -17,8 +17,6 @@ public class ExternalExternalBankAccountsServiceImpl implements ExternalBankAcco
 
     @Override
     public void addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, User user) throws BankAccountAlreadyCreatedException {
-
-
         if (user.getExternalBankAccounts().stream().anyMatch(externalBankAccount -> externalBankAccount.getName().equals(newExternalBankAccountForm.getBankAccountName()))){
             throw new BankAccountAlreadyCreatedException("Bank account already created");
         }
