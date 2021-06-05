@@ -28,17 +28,20 @@ public class AuthenticationTests {
 
     @Test
     public void testRegisterUser() throws Exception {
+      //given
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         User user = new User();
         user.setFirstName("noemie");
         user.setLastName("menu");
-        user.setEmail("nm@gmail.com");
+        user.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         user.setPassword("nm2021");
         user.setBirthdate(LocalDate.parse("29-04-2019", formatter));
 
+        //when
         authenticationService.registerUser(user);
-        User savedUser = usersRepository.findUserByEmail(user.getEmail());
 
+        //Then
+        User savedUser = usersRepository.findUserByEmail(user.getEmail());
         assertNotNull(savedUser);
         assertThat(savedUser.getEmail()).isEqualTo(user.getEmail());
     }
@@ -49,7 +52,7 @@ public class AuthenticationTests {
         User user = new User();
         user.setFirstName("noemie");
         user.setLastName("menu");
-        user.setEmail("nm@gmail.com");
+        user.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         user.setPassword("nm2021");
         user.setBirthdate(LocalDate.parse("29-04-2019", formatter));
 
@@ -57,4 +60,6 @@ public class AuthenticationTests {
 
         assertThrows(UserAlreadyCreatedException.class, () -> authenticationService.registerUser(user));
     }
+
+
 }

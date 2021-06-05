@@ -9,5 +9,5 @@ import java.util.Collection;
 @Repository
 public interface ExternalBankAccountsRepository extends CrudRepository<ExternalBankAccount, Integer> {
 
-    Collection<ExternalBankAccount> findExternalBankAccountByUserId(int id);
+    Collection<ExternalBankAccount> findExternalBankAccountsByUserId(int id);
 }
