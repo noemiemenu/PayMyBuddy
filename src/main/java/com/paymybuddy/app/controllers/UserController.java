@@ -17,7 +17,10 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String showHomePage() {
+    public String showHomePage(Model model, HttpServletRequest request) {
+        User user = authenticationService.getCurrentLoggedUser(request);
+        model.addAttribute("user", user);
+        model.addAttribute("friends", user.getFriends());
         return "homePage";
 
     }
@@ -28,7 +31,5 @@ public class UserController {
         model.addAttribute("user", user);
         return "profile";
     }
-
-
 
 }

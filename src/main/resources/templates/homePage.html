@@ -21,6 +21,65 @@
         <li class="nav-bar-element"><a class="nav-bar-content" th:href="@{/logout}">Log off</a></li>
     </ul>
 </div>
+<conteneur>
+    <img src="https://user.oc-static.com/upload/2019/10/21/15716565363662_image1.png" alt="img">
+</conteneur>
+<div class="container">
+    <div class="main-body mt-4">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img alt="Admin" class="rounded-circle p-1 bg-primary"
+                                 src="https://bootdey.com/img/Content/avatar/avatar6.png" width="110">
+                            <div class="mt-3">
+                                <h4 th:text="${user.firstName} + ' ' + ${user.lastName}"></h4>
+                                <p class="text-muted font-size-sm"
+                                   th:text="'birthdate: ' + ${#dates.format(new java.util.Date(user.birthdate), 'dd/MM/YYYY')}"></p>
+                                <p class="text-muted font-size-sm" th:text="'email: ' + ${user.email}"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <div class="mt-3">
+                                <h4 th:text="'Balance: ' + ${user.getInternalBankAccount().getBalance()} + '€'"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-m-3">
+                                <h3>List friend's</h3>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Full name</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="friend: ${friends}">
+                                <td th:text="${friend.getFriendUser().getFullName()}">Full name</td>
+                                <td th:text="${friend.getFriendUser().getEmail()}">Email</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
