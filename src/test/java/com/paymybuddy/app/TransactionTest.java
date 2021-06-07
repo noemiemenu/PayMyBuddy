@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
-public class TransactionTests {
+public class TransactionTest {
     @Autowired
     private AuthenticationService authenticationService;
 

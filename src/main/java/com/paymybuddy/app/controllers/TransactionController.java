@@ -22,6 +22,9 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * The type Transaction controller.
+ */
 @AllArgsConstructor
 @Controller
 public class TransactionController {
@@ -29,8 +32,15 @@ public class TransactionController {
     private final AuthenticationService authenticationService;
 
 
+    /**
+     * Transaction page string.
+     *
+     * @param model   the model
+     * @param request the request
+     * @return the string
+     */
     @GetMapping(value = "/transaction")
-    public String TransactionPage(Model model, HttpServletRequest request) {
+    public String transactionPage(Model model, HttpServletRequest request) {
         User user = authenticationService.getCurrentLoggedUser(request);
         Collection<Transaction> transactions = Stream.concat(
                 user.getReceiveTransactions().stream(),
@@ -48,6 +58,14 @@ public class TransactionController {
         return "transaction";
     }
 
+    /**
+     * Add money to internal account string.
+     *
+     * @param transactionForm    the transaction form
+     * @param request            the request
+     * @param redirectAttributes the redirect attributes
+     * @return redirect to the transaction Page
+     */
     @PostMapping("/transaction/external/new")
     public String addMoneyToInternalAccount(TransactionForm transactionForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
@@ -60,6 +78,14 @@ public class TransactionController {
         return "redirect:/transaction";
     }
 
+    /**
+     * Send money to external bank account string.
+     *
+     * @param transactionForm    the transaction form
+     * @param request            the request
+     * @param redirectAttributes the redirect attributes
+     * @return return redirect to the transaction Page
+     */
     @PostMapping("/transaction/external/send")
     public String sendMoneyToExternalBankAccount(TransactionForm transactionForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
@@ -72,6 +98,14 @@ public class TransactionController {
     }
 
 
+    /**
+     * Send to friend string.
+     *
+     * @param sendMoneyToFriendForm the send money to friend form
+     * @param request               the request
+     * @param redirectAttributes    the redirect attributes
+     * @return return redirect to the transaction Page
+     */
     @PostMapping("/transaction/friend/new")
     public String sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);

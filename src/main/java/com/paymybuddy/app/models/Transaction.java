@@ -9,6 +9,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * The type Transaction.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -39,6 +42,12 @@ public class Transaction {
     private User sender;
 
 
+    /**
+     * Format transaction type string.
+     *
+     * @param currentUserId the current user id
+     * @return the string
+     */
     public String formatTransactionType(int currentUserId) {
         switch (type) {
             case ADD_TO_INTERNAL_ACCOUNT:
@@ -55,6 +64,11 @@ public class Transaction {
         return null;
     }
 
+    /**
+     * Get sender full name string.
+     *
+     * @return the string
+     */
     public String getSenderFullName(){
         if (sender == null){
             return "";
@@ -62,6 +76,11 @@ public class Transaction {
         return sender.getFullName();
     }
 
+    /**
+     * Get receiver full name string.
+     *
+     * @return the string
+     */
     public String getReceiverFullName(){
         if (receiver == null){
             return "";

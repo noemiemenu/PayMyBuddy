@@ -8,10 +8,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * The type Custom user details.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
+    /**
+     * Store the current User.
+     */
     private User user;
 
 

@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
+/**
+ * The type Web security config.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,6 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe();
     }
 
+    /**
+     * Config authentication.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
@@ -45,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * BCryptPasswordEncoder: Bcrypt uses hash algorithm to store password
-     * @return
+     *
+     * @return password encoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {

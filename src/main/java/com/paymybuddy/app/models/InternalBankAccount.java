@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Collection;
 
+/**
+ * The type Internal bank account.
+ */
 @NoArgsConstructor
 @Setter
 @Getter

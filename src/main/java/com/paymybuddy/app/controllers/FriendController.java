@@ -15,12 +15,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Friend controller.
+ */
 @AllArgsConstructor
 @Controller
 public class FriendController {
     private final FriendService friendService;
     private final AuthenticationService authenticationService;
 
+    /**
+     * Show add friend page string.
+     *
+     * @param model   the model
+     * @param request the request
+     * @return the string
+     */
     @GetMapping(value = "/friends")
     public String showAddFriendPage(Model model, HttpServletRequest request) {
         User user = authenticationService.getCurrentLoggedUser(request);
@@ -29,8 +39,16 @@ public class FriendController {
     }
 
 
+    /**
+     * Add friend string.
+     *
+     * @param addFriendForm      the add friend form
+     * @param request            the request
+     * @param redirectAttributes the redirect attributes
+     * @return  redirect to the friends Page
+     */
     @GetMapping("/friend/new")
-    public String AddFriend(AddFriendForm addFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes){
+    public String addFriend(AddFriendForm addFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes){
         User user = authenticationService.getCurrentLoggedUser(request);
 
         try {

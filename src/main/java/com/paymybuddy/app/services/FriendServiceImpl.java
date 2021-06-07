@@ -11,6 +11,9 @@ import com.paymybuddy.app.services.interfaces.FriendService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Friend service.
+ */
 @AllArgsConstructor
 @Service
 public class FriendServiceImpl implements FriendService {

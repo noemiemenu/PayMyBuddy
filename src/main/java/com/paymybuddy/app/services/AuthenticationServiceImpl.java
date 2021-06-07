@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * The type Authentication service.
+ */
 @Service
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {

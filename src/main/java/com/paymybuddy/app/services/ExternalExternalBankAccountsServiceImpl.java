@@ -9,6 +9,9 @@ import com.paymybuddy.app.services.interfaces.ExternalBankAccountsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type External external bank accounts service.
+ */
 @AllArgsConstructor
 @Service
 public class ExternalExternalBankAccountsServiceImpl implements ExternalBankAccountsService {

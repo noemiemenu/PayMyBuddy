@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type Friend.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -18,12 +18,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * The type Authentication controller.
+ */
 @AllArgsConstructor
 @Controller
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
 
+    /**
+     * Show log in page string.
+     *
+     * @return redirect to the Home Page
+     */
     @GetMapping("/login")
     public String showLogInPage() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -33,6 +41,13 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
+    /**
+     * Show register page string.
+     *
+     * @param error the error
+     * @param model the model
+     * @return redirect to the Home Page
+     */
     @GetMapping("/register")
     public String showRegisterPage(@RequestParam(required = false) String error, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -43,6 +58,13 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
+    /**
+     * Register user string.
+     *
+     * @param user               the user
+     * @param redirectAttributes the redirect attributes
+     * @return redirect to the Home Page
+     */
     @PostMapping("/user/register")
     public String registerUser(User user, RedirectAttributes redirectAttributes) {
         try {
@@ -55,6 +77,13 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
+    /**
+     * Logout string.
+     *
+     * @param request  the request
+     * @param response the response
+     * @return  redirect to the login Page
+     */
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         authenticationService.logout(request, response);

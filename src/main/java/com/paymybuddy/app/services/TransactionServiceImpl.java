@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Transaction service.
+ */
 @AllArgsConstructor
 @Service
 public class TransactionServiceImpl implements TransactionService {

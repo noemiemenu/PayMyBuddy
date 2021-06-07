@@ -15,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type External bank accounts controller.
+ */
 @AllArgsConstructor
 @Controller
 public class ExternalBankAccountsController {
@@ -22,6 +25,14 @@ public class ExternalBankAccountsController {
     private final AuthenticationService authenticationService;
 
 
+    /**
+     * Add bank account string.
+     *
+     * @param newExternalBankAccountForm the new external bank account form
+     * @param request                    the request
+     * @param redirectAttributes         the redirect attributes
+     * @return redirect to the profile Page
+     */
     @PostMapping("/bank/new")
     public String addBankAccount(NewExternalBankAccountForm newExternalBankAccountForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
@@ -33,6 +44,12 @@ public class ExternalBankAccountsController {
         return "redirect:/profile";
     }
 
+    /**
+     * Delete bank account string.
+     *
+     * @param externalBankAccountId the external bank account id
+     * @return redirect to the profile Page
+     */
     @DeleteMapping("/bank/delete/{externalBankAccountId}")
     public String deleteBankAccount(@PathVariable int externalBankAccountId) {
         externalBankAccountsService.deleteBankAccount(externalBankAccountId);

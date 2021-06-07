@@ -2,7 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'gradle.site' version '0.6'
+    id 'jacoco'
+    id "com.github.spotbugs" version "4.7.1"
 }
+
 
 group = 'com.paymybuddy'
 version = '0.0.1-SNAPSHOT'
@@ -37,4 +41,42 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    finalizedBy generateSiteHtml
+    finalizedBy spotbugsMain
+    finalizedBy javadoc
+}
+
+site {
+    outputDir.set(file("$rootDir/build/reports/gradle-site"))
+    websiteUrl.set("https://github.com/noemiemenu/PayMyBuddy")
+    vcsUrl.set("https://github.com/noemiemenu/PayMyBuddy")
+}
+
+generateSiteHtml {
+    dependsOn test
+}
+
+javadoc {
+    dependsOn test
+    destinationDir = file("$rootDir/build/reports/javadoc")
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
+spotbugsMain {
+    reports {
+        html {
+            enabled = true
+            destination = file("$buildDir/reports/spotbugs/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
+    dependsOn test
+}
+
+spotbugs {
+    ignoreFailures = true
 }

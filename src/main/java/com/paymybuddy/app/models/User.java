@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * The type User.
+ */
 @AllArgsConstructor
 @Getter
 @Setter
@@ -57,6 +60,11 @@ public class User {
     @JoinColumn(name = "user_id")
     private Collection<Friend> friends = new ArrayList<>();
 
+    /**
+     * Gets full name.
+     *
+     * @return the full name
+     */
     public String getFullName() {
         return firstName + " " + lastName;
     }
