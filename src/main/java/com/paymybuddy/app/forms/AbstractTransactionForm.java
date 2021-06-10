@@ -13,7 +13,7 @@ public abstract class AbstractTransactionForm {
     /**
      * The Amount.
      */
-    protected double amount;
+    protected String amount;
     /**
      * The Wording.
      */

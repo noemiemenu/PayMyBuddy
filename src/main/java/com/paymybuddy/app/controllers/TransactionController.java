@@ -1,10 +1,11 @@
 package com.paymybuddy.app.controllers;
 
 
+import com.paymybuddy.app.exceptions.AmountFormatException;
 import com.paymybuddy.app.exceptions.InsufficientBalanceException;
 import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
+import com.paymybuddy.app.forms.AddMoneyToBalanceForm;
 import com.paymybuddy.app.forms.SendMoneyToFriendForm;
-import com.paymybuddy.app.forms.TransactionForm;
 import com.paymybuddy.app.models.Transaction;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
@@ -50,9 +51,8 @@ public class TransactionController {
         .collect(Collectors.toList());
 
         model.addAttribute("currentUserId", user.getId());
-        model.addAttribute("externalBankAccounts", user.getExternalBankAccounts());
         model.addAttribute("transactions", transactions);
-        model.addAttribute("balance", user.getInternalBankAccount().getBalance());
+        model.addAttribute("balance", user.getBalance());
         model.addAttribute("friends", user.getFriends());
 
         return "transaction";
@@ -61,42 +61,22 @@ public class TransactionController {
     /**
      * Add money to internal account string.
      *
-     * @param transactionForm    the transaction form
+     * @param addMoneyToBalanceForm    the transaction form
      * @param request            the request
      * @param redirectAttributes the redirect attributes
      * @return redirect to the transaction Page
      */
     @PostMapping("/transaction/external/new")
-    public String addMoneyToInternalAccount(TransactionForm transactionForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String addMoneyToInternalAccount(AddMoneyToBalanceForm addMoneyToBalanceForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         User user = authenticationService.getCurrentLoggedUser(request);
         try {
-            transactionService.addToInternalAccount(transactionForm, user);
-        } catch (NegativeTransactionAmountException e) {
+            transactionService.addToInternalAccount(addMoneyToBalanceForm, user);
+        } catch (NegativeTransactionAmountException | AmountFormatException e) {
             redirectAttributes.addAttribute("error_new_external_transaction", e.getMessage());
         }
 
         return "redirect:/transaction";
     }
-
-    /**
-     * Send money to external bank account string.
-     *
-     * @param transactionForm    the transaction form
-     * @param request            the request
-     * @param redirectAttributes the redirect attributes
-     * @return return redirect to the transaction Page
-     */
-    @PostMapping("/transaction/external/send")
-    public String sendMoneyToExternalBankAccount(TransactionForm transactionForm, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        User user = authenticationService.getCurrentLoggedUser(request);
-        try {
-            transactionService.sendToExternalBankAccount(transactionForm, user);
-        } catch (NegativeTransactionAmountException | InsufficientBalanceException e) {
-            redirectAttributes.addAttribute("error_send_to_bank_account", e.getMessage());
-        }
-        return "redirect:/transaction";
-    }
-
 
     /**
      * Send to friend string.
@@ -111,7 +91,7 @@ public class TransactionController {
         User user = authenticationService.getCurrentLoggedUser(request);
         try {
             transactionService.sendToFriend(sendMoneyToFriendForm, user);
-        } catch (NegativeTransactionAmountException | InsufficientBalanceException e) {
+        } catch (NegativeTransactionAmountException | InsufficientBalanceException | AmountFormatException e) {
             redirectAttributes.addAttribute("error_send_to_friend",e.getMessage());
         }
 

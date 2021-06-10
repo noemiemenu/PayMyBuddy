@@ -19,46 +19,13 @@ CREATE SCHEMA IF NOT EXISTS "paymybuddy";
 CREATE TABLE "paymybuddy"."users"
 (
     "id"         INT          NOT NULL,
-    "first_name" VARCHAR(16)  NOT NULL,
-    "last_name"  VARCHAR(45)  NOT NULL,
-    "email"      VARCHAR(255) NOT NULL,
-    "password"   VARCHAR(255) NOT NULL,
-    "birthdate"  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "first_name" VARCHAR(16)   NOT NULL,
+    "last_name" VARCHAR(45)   NOT NULL,
+    "email"     VARCHAR(255)  NOT NULL,
+    "password"  VARCHAR(255)  NOT NULL,
+    "birthdate" TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "balance"   DECIMAL(65,2) NOT NULL,
     PRIMARY KEY ("id")
-);;
-
-
--- -----------------------------------------------------
--- Table "paymybuddy"."internal_bank_account"
--- -----------------------------------------------------
-CREATE TABLE "paymybuddy"."internal_bank_account"
-(
-    "id"      INT            NOT NULL,
-    "balance" DECIMAL(65, 2) NOT NULL,
-    "user_id" INT            NOT NULL,
-    PRIMARY KEY ("id"),
-    CONSTRAINT "user_id"
-        FOREIGN KEY ("user_id")
-            REFERENCES "paymybuddy"."users" ("id")
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
-);;
-
--- -----------------------------------------------------
--- Table "paymybuddy"."external_bank_account"
--- -----------------------------------------------------
-CREATE TABLE "paymybuddy"."external_bank_account"
-(
-    "id"      INT            NOT NULL,
-    "rib"     VARCHAR(27)    NOT NULL,
-    "name"    VARCHAR(25)    NOT NULL,
-    "user_id" INT            NOT NULL,
-    PRIMARY KEY ("id"),
-    CONSTRAINT "user_id"
-        FOREIGN KEY ("user_id")
-            REFERENCES "paymybuddy"."users" ("id")
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
 );;
 
 
@@ -68,8 +35,6 @@ CREATE TABLE "paymybuddy"."external_bank_account"
 CREATE TABLE "paymybuddy"."transactions"
 (
     "id"              BIGINT        NOT NULL,
-    "external_bank_account_id" INT           NULL,
-    "internal_bank_account_id" INT           NULL,
     "date"            TIMESTAMP     NOT NULL,
     "amount"          DECIMAL(5, 2) NOT NULL,
     "wording"         TEXT          NULL,
@@ -115,16 +80,8 @@ CREATE TABLE "paymybuddy"."friends"
 DROP SEQUENCE IF EXISTS "paymybuddy"."users_id_sequence";
 CREATE SEQUENCE "paymybuddy"."users_id_sequence";
 ALTER TABLE "paymybuddy"."users"
-    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."users_id_sequence"');
-DROP SEQUENCE IF EXISTS "paymybuddy"."external_bank_account_id_sequence";
-CREATE SEQUENCE "paymybuddy"."external_bank_account_id_sequence";
-ALTER TABLE "paymybuddy"."external_bank_account"
-    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."external_bank_account_id_sequence"');
+ ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."users_id_sequence"');
 
-DROP SEQUENCE IF EXISTS "paymybuddy"."internal_bank_account_id_sequence";
-CREATE SEQUENCE "paymybuddy"."internal_bank_account_id_sequence";
-ALTER TABLE "paymybuddy"."internal_bank_account"
-    ALTER COLUMN "id" SET DEFAULT NEXTVAL('"paymybuddy"."internal_bank_account_id_sequence"');
 
 DROP SEQUENCE IF EXISTS "paymybuddy"."friends_id_sequence";
 CREATE SEQUENCE "paymybuddy"."friends_id_sequence";

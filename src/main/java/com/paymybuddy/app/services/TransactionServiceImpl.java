@@ -1,17 +1,16 @@
 package com.paymybuddy.app.services;
 
 import com.paymybuddy.app.enums.TransactionType;
+import com.paymybuddy.app.exceptions.AmountFormatException;
 import com.paymybuddy.app.exceptions.InsufficientBalanceException;
 import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
 import com.paymybuddy.app.forms.AbstractTransactionForm;
+import com.paymybuddy.app.forms.AddMoneyToBalanceForm;
 import com.paymybuddy.app.forms.SendMoneyToFriendForm;
-import com.paymybuddy.app.forms.TransactionForm;
-import com.paymybuddy.app.models.ExternalBankAccount;
-import com.paymybuddy.app.models.InternalBankAccount;
 import com.paymybuddy.app.models.Transaction;
 import com.paymybuddy.app.models.User;
-import com.paymybuddy.app.repositories.InternalBankAccountRepository;
 import com.paymybuddy.app.repositories.TransactionsRepository;
+import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,83 +24,68 @@ import java.time.LocalDateTime;
 @Service
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionsRepository transactionsRepository;
-    private final InternalBankAccountRepository internalBankAccountRepository;
+    private final UsersRepository usersRepository;
     
 
-    public double computeTransactionAmountWithFee(User user, AbstractTransactionForm transactionForm) {
-        return user.getInternalBankAccount().getBalance() - (transactionForm.getAmount() * 1.005);
+    public double computeTransactionAmountWithFee(User user, AbstractTransactionForm abstractTransactionForm) {
+        double amount = Double.parseDouble(abstractTransactionForm.getAmount());
+        return user.getBalance() - (amount * 1.005);
     }
 
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
-    public void addToInternalAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException {
+    public void addToInternalAccount(AddMoneyToBalanceForm addMoneyToBalanceForm, User user) throws NegativeTransactionAmountException, AmountFormatException {
 
-        if (transactionForm.getAmount() <= 0) {
+        if (!isNumeric(addMoneyToBalanceForm.getAmount())){
+            throw new AmountFormatException("The amount must be a number.");
+        }
+
+        double amount = Double.parseDouble(addMoneyToBalanceForm.getAmount());
+
+
+        if (amount <= 0) {
             throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
         }
 
-        InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
-        ExternalBankAccount userExternalBankAccount = user.getExternalBankAccounts()
-                .stream()
-                .filter((ExternalBankAccount externalBankAccount)
-                        -> transactionForm.getExternalBankAccountId() == externalBankAccount.getId())
-                .findAny().get();
-
         Transaction transaction = new Transaction();
-        transaction.setWording(transactionForm.getWording());
+        transaction.setWording(addMoneyToBalanceForm.getWording());
         transaction.setDate(LocalDateTime.now());
-        transaction.setInternalBankAccount(userInternalBankAccount);
-        transaction.setExternalBankAccount(userExternalBankAccount);
         transaction.setReceiver(user);
         transaction.setType(TransactionType.ADD_TO_INTERNAL_ACCOUNT);
-        transaction.setAmount(transactionForm.getAmount() * 0.995);
+        transaction.setAmount(amount * 0.995);
         transactionsRepository.save(transaction);
 
-        userInternalBankAccount.setBalance(userInternalBankAccount.getBalance() + transaction.getAmount());
-        internalBankAccountRepository.save(userInternalBankAccount);
+        user.setBalance(user.getBalance() + transaction.getAmount());
+        usersRepository.save(user);
     }
 
-    @Override
-    public void sendToExternalBankAccount(TransactionForm transactionForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException {
 
-        if (transactionForm.getAmount() <= 0) {
+    @Override
+    public void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException, AmountFormatException {
+
+        if (!isNumeric(sendMoneyToFriendForm.getAmount())){
+            throw new AmountFormatException("The amount must be a number.");
+        }
+
+        double amount = Double.parseDouble(sendMoneyToFriendForm.getAmount());
+
+        if (amount <= 0) {
             throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
         }
 
-        if (computeTransactionAmountWithFee(user, transactionForm) < 0) {
-            throw new InsufficientBalanceException("the account balance is insufficient: " + user.getInternalBankAccount().getBalance());
-        }
-
-        InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
-
-        ExternalBankAccount userExternalBankAccount = user.getExternalBankAccounts()
-                .stream()
-                .filter((ExternalBankAccount externalBankAccount)
-                        -> transactionForm.getExternalBankAccountId() == externalBankAccount.getId())
-                .findAny().get();
-
-        Transaction transaction = new Transaction();
-        transaction.setWording(transactionForm.getWording());
-        transaction.setDate(LocalDateTime.now());
-        transaction.setInternalBankAccount(userInternalBankAccount);
-        transaction.setExternalBankAccount(userExternalBankAccount);
-        transaction.setAmount(transactionForm.getAmount());
-        transaction.setReceiver(user);
-        transaction.setType(TransactionType.SEND_TO_BANK);
-        transactionsRepository.save(transaction);
-
-        userInternalBankAccount.setBalance(computeTransactionAmountWithFee(user, transactionForm));
-        internalBankAccountRepository.save(userInternalBankAccount);
-    }
-
-    @Override
-    public void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException {
-
-        if (sendMoneyToFriendForm.getAmount() <= 0) {
-            throw new NegativeTransactionAmountException("The amount cannot be negative or equals to 0.");
-        }
         if (computeTransactionAmountWithFee(user, sendMoneyToFriendForm) < 0) {
-            throw new InsufficientBalanceException("the account balance is insufficient: " + user.getInternalBankAccount().getBalance());
+            throw new InsufficientBalanceException("the account balance is insufficient: " + user.getBalance());
         }
 
         User userFriend = user.getFriends()
@@ -111,23 +95,20 @@ public class TransactionServiceImpl implements TransactionService {
                 .get()
                 .getFriendUser();
 
-        InternalBankAccount userInternalBankAccount = user.getInternalBankAccount();
-
-        InternalBankAccount friendInternalBankAccount = userFriend.getInternalBankAccount();
 
         Transaction transaction = new Transaction();
         transaction.setWording(sendMoneyToFriendForm.getWording());
         transaction.setDate(LocalDateTime.now());
-        transaction.setAmount(sendMoneyToFriendForm.getAmount());
+        transaction.setAmount(amount);
         transaction.setReceiver(userFriend);
         transaction.setSender(user);
         transaction.setType(TransactionType.SEND_TO_FRIEND);
         transactionsRepository.save(transaction);
 
-        userInternalBankAccount.setBalance(computeTransactionAmountWithFee(user, sendMoneyToFriendForm));
-        internalBankAccountRepository.save(userInternalBankAccount);
+        user.setBalance(computeTransactionAmountWithFee(user, sendMoneyToFriendForm));
+        usersRepository.save(user);
 
-        friendInternalBankAccount.setBalance(friendInternalBankAccount.getBalance() + sendMoneyToFriendForm.getAmount());
-        internalBankAccountRepository.save(friendInternalBankAccount);
+        userFriend.setBalance(userFriend.getBalance() + amount);
+        usersRepository.save(userFriend);
     }
 }

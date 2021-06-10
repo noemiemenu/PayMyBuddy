@@ -4,63 +4,34 @@ INSERT INTO
            last_name,
            email,
            password,
-           birthdate)
+           birthdate,
+           balance)
 
      VALUES ('noemie',
              'menu',
              'noemie@gmail.com',
              '$2y$12$TZI/bomqG1vVBYbUQ/vvKeBX4MKkZWdC0IqmNHQXrIV3sb6/XBYty',
-             '1996-05-12');
+             '1996-05-12',
+             '100.00');
 
 
-INSERT INTO
-    internal_bank_account (balance,
-                           user_id)
-    VALUES (50,
-            (select id
-            from users
-            where email = 'noemie@gmail.com'));
-
-INSERT INTO
-    external_bank_account (rib,
-                           name,
-                           user_id)
-VALUES ('fr123456',
-        'LCL',
-        (select id
-         from users
-         where email = 'noemie@gmail.com'));
 
 INSERT INTO
     users (first_name,
             last_name,
             email,
             password,
-            birthdate)
+            birthdate,
+           balance)
     VALUES ('paul',
             'P',
             'paul@gmail.com',
             '$2y$12$aZHEDAkG00BBwbzAei.2WeZ/m7epH9meIeML2lqcxwE2bGwSxt/3e',
-            '1996-05-12');
+            '1996-05-12',
+            '100.00');
 
 
-INSERT INTO
-    internal_bank_account (balance,
-                           user_id)
-    VALUES (50,
-            (select  id
-            from users
-            where email = 'paul@gmail.com'));
 
-INSERT INTO
-    external_bank_account (rib,
-                           name,
-                           user_id)
-VALUES ('AB123456',
-        'LCL',
-        (select id
-         from users
-         where email = 'paul@gmail.com'));
 
 INSERT INTO
     friends(USER_ID,
