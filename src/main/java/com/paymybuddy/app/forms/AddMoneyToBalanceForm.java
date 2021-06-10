@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class NewExternalBankAccountForm {
+public class AddMoneyToBalanceForm extends AbstractTransactionForm{
 
     private String bankAccountName;
     private String rib;

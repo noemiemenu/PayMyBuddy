@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,15 +25,13 @@ public class Transaction {
     @GeneratedValue
     private int id;
 
-    @ManyToOne
-    private InternalBankAccount internalBankAccount;
-
-    @ManyToOne
-    private ExternalBankAccount externalBankAccount;
-
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime Date;
+
     private double amount;
+
     private String wording;
+
     private TransactionType type;
 
     @ManyToOne
@@ -51,9 +50,9 @@ public class Transaction {
     public String formatTransactionType(int currentUserId) {
         switch (type) {
             case ADD_TO_INTERNAL_ACCOUNT:
-                return "Add to paymybuddy account from external bank account: " + externalBankAccount.getName();
+                return "Add to PayMyBuddy account from external bank account: ";
             case SEND_TO_BANK:
-                return "Sent to bank: " + externalBankAccount.getName();
+                return "Sent to bank: ";
             case SEND_TO_FRIEND:
                 if (currentUserId == receiver.getId()) {
                     return "Receive from: " + sender.getFullName();

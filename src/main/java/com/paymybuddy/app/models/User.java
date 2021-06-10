@@ -44,17 +44,13 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
 
+    private double balance;
+
     @OneToMany(mappedBy = "sender")
     private Collection<Transaction> sentTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver")
     private Collection<Transaction> receiveTransactions = new ArrayList<>();
-
-    @OneToOne(mappedBy = "user")
-    private InternalBankAccount internalBankAccount;
-
-    @OneToMany(mappedBy = "user")
-    private Collection<ExternalBankAccount> externalBankAccounts = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id")

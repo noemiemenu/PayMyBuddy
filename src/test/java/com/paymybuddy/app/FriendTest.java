@@ -7,7 +7,6 @@ import com.paymybuddy.app.forms.AddFriendForm;
 import com.paymybuddy.app.models.Friend;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.repositories.FriendsRepository;
-import com.paymybuddy.app.repositories.InternalBankAccountRepository;
 import com.paymybuddy.app.repositories.UsersRepository;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
 import com.paymybuddy.app.services.interfaces.FriendService;
