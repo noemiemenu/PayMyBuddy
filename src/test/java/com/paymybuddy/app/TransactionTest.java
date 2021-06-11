@@ -1,5 +1,6 @@
 package com.paymybuddy.app;
 
+import com.paymybuddy.app.exceptions.AmountFormatException;
 import com.paymybuddy.app.exceptions.InsufficientBalanceException;
 import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
@@ -50,7 +51,7 @@ public class TransactionTest {
     private User user;
 
 
-   @BeforeEach
+    @BeforeEach
     public void setupTest() throws UserAlreadyCreatedException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -64,7 +65,7 @@ public class TransactionTest {
 
         authenticationService.registerUser(user);
         this.user = usersRepository.findUserByEmail(user.getEmail());
-         }
+    }
 
 
     @Test
@@ -89,7 +90,7 @@ public class TransactionTest {
     @Test
     public void computeTransactionAmountWithFeeTest() {
         //given
-        AddMoneyToBalanceForm transactionForm = new AddMoneyToBalanceForm("bank","aze"){
+        AddMoneyToBalanceForm transactionForm = new AddMoneyToBalanceForm("bank", "aze") {
         };
         transactionForm.setAmount("10");
         transactionForm.setWording("azerty");
@@ -109,7 +110,7 @@ public class TransactionTest {
     @Test
     public void addToInternalAccount_must_throw_NegativeTransactionAmountException() {
         //given
-        AddMoneyToBalanceForm addMoneyToBalanceForm = new AddMoneyToBalanceForm("lcl","azert");
+        AddMoneyToBalanceForm addMoneyToBalanceForm = new AddMoneyToBalanceForm("lcl", "azert");
         addMoneyToBalanceForm.setAmount("0");
         addMoneyToBalanceForm.setWording("azerty");
         double amount = Double.parseDouble(addMoneyToBalanceForm.getAmount());
@@ -119,6 +120,16 @@ public class TransactionTest {
         assertThrows(NegativeTransactionAmountException.class, () -> transactionService.addToInternalAccount(addMoneyToBalanceForm, user));
     }
 
+    @Test
+    public void addToInternalAccount_must_throw_AmountFormatExceptionTest() {
+        //given
+        AddMoneyToBalanceForm addMoneyToBalanceForm = new AddMoneyToBalanceForm("lcl", "azert");
+        addMoneyToBalanceForm.setAmount("aze");
+        addMoneyToBalanceForm.setWording("azerty");
+
+        //when & then
+        assertThrows(AmountFormatException.class, () -> transactionService.addToInternalAccount(addMoneyToBalanceForm, user));
+    }
 
 
     @Test
@@ -153,16 +164,16 @@ public class TransactionTest {
         assertDoesNotThrow(() -> transactionService.sendToFriend(sendMoneyToFriendForm, user));
 
         //then
-        /*user.setInternalBankAccount(internalBankAccountRepository.findByUserId(user.getId()));
-        BigDecimal bd = BigDecimal.valueOf(user.getInternalBankAccount().getBalance()).setScale(2, RoundingMode.HALF_EVEN);
-        user.getInternalBankAccount().setBalance(bd.doubleValue());
-        assertThat(user.getInternalBankAccount().getBalance()).isEqualTo(9.95);
+        user.setBalance(user.getBalance());
+        BigDecimal bd = BigDecimal.valueOf(user.getBalance()).setScale(2, RoundingMode.HALF_EVEN);
+        user.setBalance(bd.doubleValue());
+        assertThat(user.getBalance()).isEqualTo(9.95);
 
-        friendRef.friend.setInternalBankAccount(internalBankAccountRepository.findByUserId(friendRef.friend.getId()));
-        bd = BigDecimal.valueOf(friendRef.friend.getInternalBankAccount().getBalance()).setScale(2, RoundingMode.HALF_EVEN);
-        friendRef.friend.getInternalBankAccount().setBalance(bd.doubleValue());
-        assertThat(friendRef.friend.getInternalBankAccount().getBalance()).isEqualTo(10.00);
-*/
+        friendRef.friend.setBalance(amount);
+        bd = BigDecimal.valueOf(friendRef.friend.getBalance()).setScale(2, RoundingMode.HALF_EVEN);
+        friendRef.friend.setBalance(bd.doubleValue());
+        assertThat(friendRef.friend.getBalance()).isEqualTo(10.00);
+
     }
 
     @Test
@@ -171,11 +182,11 @@ public class TransactionTest {
         SendMoneyToFriendForm sendMoneyToFriendForm = new SendMoneyToFriendForm("");
         sendMoneyToFriendForm.setAmount("0");
         sendMoneyToFriendForm.setWording("azerty");
-        double amount =Double.parseDouble(sendMoneyToFriendForm.getAmount());
+        double amount = Double.parseDouble(sendMoneyToFriendForm.getAmount());
         //when & then
         assertThrows(NegativeTransactionAmountException.class, () -> transactionService.sendToFriend(sendMoneyToFriendForm, user));
 
-     }
+    }
 
     @Test
     public void sendToFriend_must_throw_InsufficientBalanceException() {
@@ -192,5 +203,17 @@ public class TransactionTest {
         assertThrows(InsufficientBalanceException.class, () -> transactionService.sendToFriend(sendMoneyToFriendForm, user));
 
 
-     }
- }
+    }
+
+    @Test
+    public void sendToFriend_must_throw_AmountFormatExceptionTest(){
+
+        SendMoneyToFriendForm sendMoneyToFriendForm = new SendMoneyToFriendForm(" ");
+        sendMoneyToFriendForm.setAmount("aze");
+        sendMoneyToFriendForm.setWording("azerty");
+
+        //when & then
+        assertThrows(AmountFormatException.class, () -> transactionService.sendToFriend(sendMoneyToFriendForm, user));
+
+    }
+}

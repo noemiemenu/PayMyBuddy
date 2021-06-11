@@ -50,9 +50,8 @@ public class Transaction {
     public String formatTransactionType(int currentUserId) {
         switch (type) {
             case ADD_TO_INTERNAL_ACCOUNT:
-                return "Add to PayMyBuddy account from external bank account: ";
-            case SEND_TO_BANK:
-                return "Sent to bank: ";
+                return "Add to PayMyBuddy account: ";
+
             case SEND_TO_FRIEND:
                 if (currentUserId == receiver.getId()) {
                     return "Receive from: " + sender.getFullName();
