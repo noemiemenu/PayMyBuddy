@@ -35,9 +35,6 @@ public class FriendTest {
     private User user;
 
     @Autowired
-    private InternalBankAccountRepository internalBankAccountRepository;
-
-    @Autowired
     private FriendService friendService;
 
     @Autowired
@@ -55,8 +52,7 @@ public class FriendTest {
 
         authenticationService.registerUser(user);
         this.user = usersRepository.findUserByEmail(user.getEmail());
-        this.user.setInternalBankAccount(internalBankAccountRepository.findByUserId(this.user.getId()));
-    }
+        }
 
     @Test
     public void addFriendTest(){
