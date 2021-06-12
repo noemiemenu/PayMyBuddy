@@ -9,7 +9,7 @@ docker run --name paymybuddy-postgres -p 5432:5432 -e POSTGRES_PASSWORD=paymybud
 ```
 
 ## UML Diagram
-[PayMyBuddy UML diagram link](./documentation/P6_02_diagrammeUML.pdf)
+[PayMyBuddy UML diagram link](./documentation/P6_02_diagramme_UML.pdf)
 
 ## Physical database model 
-[PayMyBuddy physical database model link](./documentation/P6_03_modele_physique_de_donnees.pdf)
+[PayMyBuddy physical database model link](./documentation/P6_03_modèle_physique_données.pdf)
