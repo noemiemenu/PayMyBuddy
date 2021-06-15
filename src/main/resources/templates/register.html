@@ -27,6 +27,9 @@
         <div th:if="${param.error}">
             <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
         </div>
+        <div th:if="${param.legal_age_exception}">
+            <p class="text-danger">You have not the legal ages required to register to PayMyBuddy</p>
+        </div>
 
         <div th:if="${param.account_already_exists}">
             <p class="text-danger">The email is already taken, you must login with this email or create another account

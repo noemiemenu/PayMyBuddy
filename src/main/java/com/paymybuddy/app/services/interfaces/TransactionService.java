@@ -18,8 +18,9 @@ public interface TransactionService {
      * Add to internal account.
      *
      * @param addMoneyToBalanceForm the transaction form
-     * @param user            the user
+     * @param user                  the user
      * @throws NegativeTransactionAmountException the negative transaction amount exception
+     * @throws AmountFormatException              the amount format exception
      */
     void addToInternalAccount(AddMoneyToBalanceForm addMoneyToBalanceForm, User user) throws NegativeTransactionAmountException, AmountFormatException;
 
@@ -29,7 +30,7 @@ public interface TransactionService {
      * @param sendMoneyToFriendForm the send money to friend form
      * @param user                  the user
      * @throws NegativeTransactionAmountException the negative transaction amount exception
-     * @throws InsufficientBalanceException        the insufficient balance exception
+     * @throws InsufficientBalanceException       the insufficient balance exception
      * @throws AmountFormatException              the amount must be a number.
      */
     void sendToFriend(SendMoneyToFriendForm sendMoneyToFriendForm, User user) throws NegativeTransactionAmountException, InsufficientBalanceException, AmountFormatException;

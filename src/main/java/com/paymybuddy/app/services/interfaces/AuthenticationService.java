@@ -1,5 +1,6 @@
 package com.paymybuddy.app.services.interfaces;
 
+import com.paymybuddy.app.exceptions.LegalAgeException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.User;
 
@@ -16,8 +17,9 @@ public interface AuthenticationService {
      *
      * @param user the user
      * @throws UserAlreadyCreatedException the user already created exception
+     * @throws LegalAgeException           the legal age exception
      */
-    void registerUser(User user) throws UserAlreadyCreatedException;
+    void registerUser(User user) throws UserAlreadyCreatedException, LegalAgeException;
 
     /**
      * Logout.

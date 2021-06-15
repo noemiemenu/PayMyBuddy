@@ -45,7 +45,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                    <h6 class="mb-1">friend:</h6>
+                                    <h6 class="mb-1">friend</h6>
                                 </div>
                                 <div class="col-sm-12">
                                     <select class="form-select" aria-label="select a friend" name="friendEmail">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                    <h6 class="mb-1">Label:</h6>
+                                    <h6 class="mb-1">Label</h6>
                                 </div>
                                 <div class="col-sm-12 text-secondary">
                                     <input class="form-control" name="wording" required type="text">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-6">
-                                    <h6 class="mb-1">Amount:</h6>
+                                    <h6 class="mb-1">Amount</h6>
                                 </div>
                                 <div class="input-group">
                                     <input name="amount" type="text" class="form-control" required>
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
-                                            <h6 class="mb-1">Bank account name:</h6>
+                                            <h6 class="mb-1">Bank account name</h6>
                                         </div>
                                         <div class="mb-3">
                                             <input type="text" class="form-control" placeholder="name" required>
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
-                                            <h6 class="mb-1">RIB:</h6>
+                                            <h6 class="mb-1">RIB</h6>
                                         </div>
                                         <div class="mb-3">
                                             <input type="text" class="form-control" placeholder="fr1234567" required>
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6">
-                                            <h6 class="mb-1">Amount:</h6>
+                                            <h6 class="mb-1">Amount</h6>
                                         </div>
                                         <div th:if="${param.error_new_external_transaction}">
                                             <p class="text-danger" th:text="${param.error_new_external_transaction}"></p>
@@ -153,10 +153,10 @@
                             </thead>
                             <tbody>
                             <tr th:each="transaction : ${transactions}">
-                                <td th:text="${#dates.format(new java.util.Date(transaction.getDate()), 'dd/MM/YYYY hh:mm:ss')}"></td>
+                                <td th:text="${#temporals.format(transaction.getDate(), 'dd/MM/yy h:mm')}"></td>
                                 <td th:text="${transaction.formatTransactionType(currentUserId)}"></td>
                                 <td th:text="${transaction.getAmount()}"></td>
-                                <td th:text="${transaction.getWording()}"></td>
+                                <td th:text="${transaction.getLabel()}"></td>
                                 <td th:text="${transaction.getSenderFullName()}"></td>
                                 <td th:text="${transaction.getReceiverFullName()}"></td>
                             </tr>

@@ -30,7 +30,7 @@ public class Transaction {
 
     private double amount;
 
-    private String wording;
+    private String label;
 
     private TransactionType type;
 

@@ -61,9 +61,9 @@ public class TransactionController {
     /**
      * Add money to internal account string.
      *
-     * @param addMoneyToBalanceForm    the transaction form
-     * @param request            the request
-     * @param redirectAttributes the redirect attributes
+     * @param addMoneyToBalanceForm the transaction form
+     * @param request               the request
+     * @param redirectAttributes    the redirect attributes
      * @return redirect to the transaction Page
      */
     @PostMapping("/transaction/external/new")

@@ -1,9 +1,6 @@
 package com.paymybuddy.app;
 
-import com.paymybuddy.app.exceptions.AmountFormatException;
-import com.paymybuddy.app.exceptions.InsufficientBalanceException;
-import com.paymybuddy.app.exceptions.NegativeTransactionAmountException;
-import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
+import com.paymybuddy.app.exceptions.*;
 import com.paymybuddy.app.forms.AddFriendForm;
 import com.paymybuddy.app.forms.AddMoneyToBalanceForm;
 import com.paymybuddy.app.forms.SendMoneyToFriendForm;
@@ -52,7 +49,7 @@ public class TransactionTest {
 
 
     @BeforeEach
-    public void setupTest() throws UserAlreadyCreatedException {
+    public void setupTest() throws UserAlreadyCreatedException, LegalAgeException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         User user = new User();
@@ -60,7 +57,7 @@ public class TransactionTest {
         user.setLastName("menu");
         user.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         user.setPassword("nm2021");
-        user.setBirthdate(LocalDate.parse("29-04-2019", formatter));
+        user.setBirthdate(LocalDate.parse("29-04-2000", formatter));
         user.setBalance(10);
 
         authenticationService.registerUser(user);
@@ -145,7 +142,7 @@ public class TransactionTest {
         friendRef.friend.setLastName("menu");
         friendRef.friend.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         friendRef.friend.setPassword("nm2021");
-        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2019", formatter));
+        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2000", formatter));
         friendRef.friend.setBalance(0);
         assertDoesNotThrow(() -> authenticationService.registerUser(friendRef.friend));
         friendRef.friend = usersRepository.findUserByEmail(friendRef.friend.getEmail());

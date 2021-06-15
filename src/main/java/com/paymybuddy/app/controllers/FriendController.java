@@ -45,7 +45,7 @@ public class FriendController {
      * @param addFriendForm      the add friend form
      * @param request            the request
      * @param redirectAttributes the redirect attributes
-     * @return  redirect to the friends Page
+     * @return redirect to the friends Page
      */
     @GetMapping("/friend/new")
     public String addFriend(AddFriendForm addFriendForm, HttpServletRequest request, RedirectAttributes redirectAttributes){

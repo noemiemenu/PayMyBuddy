@@ -1,5 +1,6 @@
 package com.paymybuddy.app.controllers;
 
+import com.paymybuddy.app.exceptions.LegalAgeException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.services.interfaces.AuthenticationService;
@@ -73,6 +74,10 @@ public class AuthenticationController {
             redirectAttributes.addAttribute("account_already_exists", true);
             return "redirect:/register";
         }
+        catch (LegalAgeException e ){
+            redirectAttributes.addAttribute("legal_age_exception", true);
+            return "redirect:/register";
+        }
 
         return "redirect:/";
     }
@@ -82,7 +87,7 @@ public class AuthenticationController {
      *
      * @param request  the request
      * @param response the response
-     * @return  redirect to the login Page
+     * @return redirect to the login Page
      */
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {

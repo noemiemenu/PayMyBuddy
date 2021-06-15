@@ -1,6 +1,7 @@
 package com.paymybuddy.app;
 
 import com.paymybuddy.app.exceptions.FriendAlreadyLinkedException;
+import com.paymybuddy.app.exceptions.LegalAgeException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.exceptions.UserNotFoundException;
 import com.paymybuddy.app.forms.AddFriendForm;
@@ -41,18 +42,18 @@ public class FriendTest {
     private FriendsRepository friendsRepository;
 
     @BeforeEach
-    public void setupTest() throws UserAlreadyCreatedException {
+    public void setupTest() throws UserAlreadyCreatedException, LegalAgeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         User user = new User();
         user.setFirstName("noemie");
         user.setLastName("menu");
         user.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         user.setPassword("nm2021");
-        user.setBirthdate(LocalDate.parse("29-04-2019", formatter));
+        user.setBirthdate(LocalDate.parse("29-04-2000", formatter));
 
         authenticationService.registerUser(user);
         this.user = usersRepository.findUserByEmail(user.getEmail());
-        }
+    }
 
     @Test
     public void addFriendTest(){
@@ -65,7 +66,7 @@ public class FriendTest {
         friendRef.friend.setLastName("menu");
         friendRef.friend.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         friendRef.friend.setPassword("nm2021");
-        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2019", formatter));
+        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2000", formatter));
         assertDoesNotThrow(() -> authenticationService.registerUser(friendRef.friend));
         friendRef.friend = usersRepository.findUserByEmail(friendRef.friend.getEmail());
         AddFriendForm addFriendForm = new AddFriendForm(friendRef.friend.getEmail());
@@ -99,7 +100,7 @@ public class FriendTest {
         friendRef.friend.setLastName("menu");
         friendRef.friend.setEmail(Long.toHexString(Double.doubleToLongBits(Math.random())) + "@gmail.com");
         friendRef.friend.setPassword("nm2021");
-        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2019", formatter));
+        friendRef.friend.setBirthdate(LocalDate.parse("29-04-2000", formatter));
         assertDoesNotThrow(() -> authenticationService.registerUser(friendRef.friend));
         friendRef.friend = usersRepository.findUserByEmail(friendRef.friend.getEmail());
         AddFriendForm addFriendForm = new AddFriendForm(friendRef.friend.getEmail());

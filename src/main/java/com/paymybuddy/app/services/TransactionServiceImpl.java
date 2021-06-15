@@ -25,13 +25,28 @@ import java.time.LocalDateTime;
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionsRepository transactionsRepository;
     private final UsersRepository usersRepository;
-    
 
+    private final double fees = 1.005;
+
+
+
+    /**
+     * Calculate the amount of the transaction with fees
+     * @param user the user
+     * @param abstractTransactionForm
+     * @return
+     */
     public double computeTransactionAmountWithFee(User user, AbstractTransactionForm abstractTransactionForm) {
         double amount = Double.parseDouble(abstractTransactionForm.getAmount());
-        return user.getBalance() - (amount * 1.005);
+        return user.getBalance() - (amount * fees);
     }
 
+    /**
+     * Is numeric boolean.
+     *
+     * @param strNum the str num
+     * @return the boolean
+     */
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -59,7 +74,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         Transaction transaction = new Transaction();
-        transaction.setWording(addMoneyToBalanceForm.getWording());
+        transaction.setLabel(addMoneyToBalanceForm.getWording());
         transaction.setDate(LocalDateTime.now());
         transaction.setReceiver(user);
         transaction.setType(TransactionType.ADD_TO_INTERNAL_ACCOUNT);
@@ -97,7 +112,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 
         Transaction transaction = new Transaction();
-        transaction.setWording(sendMoneyToFriendForm.getWording());
+        transaction.setLabel(sendMoneyToFriendForm.getWording());
         transaction.setDate(LocalDateTime.now());
         transaction.setAmount(amount);
         transaction.setReceiver(userFriend);

@@ -3,11 +3,6 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-
--- -----------------------------------------------------
--- Schema paymybuddy
--- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema paymybuddy
 -- -----------------------------------------------------
@@ -26,8 +21,7 @@ CREATE TABLE "paymybuddy"."users"
     "birthdate" TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "balance"   DECIMAL(65,2) NOT NULL,
     PRIMARY KEY ("id")
-);;
-
+);
 
 -- -----------------------------------------------------
 -- Table "paymybuddy"."transactions"
@@ -37,7 +31,7 @@ CREATE TABLE "paymybuddy"."transactions"
     "id"              BIGINT        NOT NULL,
     "date"            TIMESTAMP     NOT NULL,
     "amount"          DECIMAL(5, 2) NOT NULL,
-    "wording"         TEXT          NULL,
+    "label"         TEXT          NULL,
     "type"            VARCHAR(45)   NOT NULL,
     "sender_id"       INT           NULL,
     "receiver_id"     INT           NOT NULL,
@@ -52,7 +46,7 @@ CREATE TABLE "paymybuddy"."transactions"
             REFERENCES "paymybuddy"."users" ("id")
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-);;
+);
 
 
 -- -----------------------------------------------------
@@ -74,7 +68,7 @@ CREATE TABLE "paymybuddy"."friends"
             REFERENCES "paymybuddy"."users" ("id")
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-);;
+);
 
 
 DROP SEQUENCE IF EXISTS "paymybuddy"."users_id_sequence";

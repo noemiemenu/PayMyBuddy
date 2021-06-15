@@ -1,5 +1,6 @@
 package com.paymybuddy.app.services;
 
+import com.paymybuddy.app.exceptions.LegalAgeException;
 import com.paymybuddy.app.exceptions.UserAlreadyCreatedException;
 import com.paymybuddy.app.models.User;
 import com.paymybuddy.app.repositories.UsersRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Calendar;
 
 
 /**
@@ -27,11 +29,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public void registerUser(User user) throws UserAlreadyCreatedException {
+    public void registerUser(User user) throws UserAlreadyCreatedException, LegalAgeException {
         User alreadyRegisteredUser = usersRepository.findUserByEmail(user.getEmail());
         if (alreadyRegisteredUser != null) {
             throw new UserAlreadyCreatedException("User already created");
         }
+        int year = Calendar.getInstance().getWeekYear();
+        int userYear = user.getBirthdate().getYear();
+        if ((year - userYear) < 18 ){
+            throw new LegalAgeException("You have not the legal ages required to register to PayMyBuddy");
+        }
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         usersRepository.save(user);
